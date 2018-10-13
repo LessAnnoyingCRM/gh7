@@ -1,14 +1,12 @@
 <?php
 
-function SendVoiceMessage ($Parameters) {
-	
-	$SendingUserId = $Parameters['Sender'];
+function SendVoiceMessage ($Parameters, $UserId) {
 	$MatchId = $Parameters['MatchId'];
 	$DateSent = gmdate("Y-m-d H:i:s");
 	$Message = $Parameters['Message'];
 
 	$Sql = "INSERT INTO message (SendingUserId, MatchId, DateSent, Message)
-			VALUES ($SendingUserId, $MatchId, $DateSent, $Message)";
+			VALUES ($UserId, $MatchId, $DateSent, $Message)";
 
 	try {
 		mysqli_query($Conn, $Sql);
@@ -23,14 +21,14 @@ function SendVoiceMessage ($Parameters) {
 	);
 }
 
-function GetVoiceMessages ($Parameters, $OrderDirection='ASC') {
+function GetVoiceMessages ($Parameters, $UserId) {
 
 	$MatchId = $Parameters['MatchId'];
-	$UserId = $Parameters['UserId'];
+	$UserId = $UserId;
 
 	$Sql = "SELECT * FROM message 
 			WHERE MatchId = $MatchId AND DateAchived IS NULL
-			ORDER BY DateSent $OrderDirection";
+			ORDER BY DateSent ASC";
 
 	try {
 		$Result = mysqli_query($Conn, $Sql);
@@ -51,15 +49,13 @@ function GetVoiceMessages ($Parameters, $OrderDirection='ASC') {
 	return array("Conversation" => $ReturnArray);
 }
 
-function GetAllConversations ($Parameters, $OrderDirection='ASC') {
-
-	$UserId = $Parameters['UserId'];
-	$TypeOfUserId = ($Parameters['IsHost'] ? "HostId" : "GuestId");
+function GetAllConversations ($Parameters, $UserId, $IsHost) {
+	$TypeOfUserId = ($IsHost ? "HostId" : "GuestId");
 
 	$Sql = "SELECT * FROM message 
 			LEFT JOIN match ON message.MatchId = match.MatchId
 			WHERE match.$TypeOfUserId = $TypeOfUserId AND match.DateUnmatched IS NULL AND message.DateAchived IS NULL
-			ORDER BY message.DateSent $OrderDirection";
+			ORDER BY message.DateSent ASC";
 
 	try {	
 		$Result = mysqli_query($Conn, $Sql);

@@ -1,6 +1,6 @@
 <?php
 
-function GetMatches ($UserId) {
+function GetMatches ($Parameters, $UserId) {
 	$User = GetUser($UserId);
 
 	if($User['IsHost'])
@@ -10,4 +10,30 @@ function GetMatches ($UserId) {
 	}
 	
 	return mysqli_query($Conn, $Sql);
+}
+
+function GuestApproveMatch ($Parameters) {
+	$MatchId = $Parameters['MatchId'];
+	$DateGuestApproved = gmdate("Y-m-d H:i:s");
+
+	$Sql = "UPDATE match 
+			SET DateGuestApproved = $DateGuestApproved 
+			WHERE MatchId = $MatchId";
+
+	try {
+		mysqli_query($Conn, $Sql);
+	} catch (Exception $e) {
+		error_log($e->getMessage());
+		return "Error";
+	}
+
+	return array();
+}
+
+function HostConfirmMatch ($Parameters) {
+	$MatchId = $Parameters['MatchId'];
+	$DateHostMatched = gmdate("Y-m-d H:i:s");
+
+	$Sql = "UPDATE match
+			SET DateHostMatched = '$DateHostMatched'
 }

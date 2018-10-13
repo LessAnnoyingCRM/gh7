@@ -1,8 +1,8 @@
 <?php
 
-function RateUser ($Parameters) {
+function RateUser ($Parameters, $UserId) {
 	$EventId = $Parameters['EventId'];
-	$RatingUserId = $Parameters['UserId'];
+	$RatingUserId = $UserId;
 	$RatedUserId = $Parameters['RatedUserId'];
 	$Criterion = $Parameters['Criterion'];
 	$Rating = ($Parameters['Rating'] ? $Parameters['Rating'] : null);

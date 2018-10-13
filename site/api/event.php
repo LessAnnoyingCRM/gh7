@@ -19,9 +19,9 @@ function CreateEvent($Parameters) {
 	return array("EventId" => $EventId);
 }
 
-function ConfirmEvent($Parameters) {
+function ConfirmEvent($Parameters, $UserId, $IsHost) {
 	$EventId = $Parameters['EventId'];
-	$WhichUser_DateConfirmed = ($Parameters['IsHost'] ? "DateHostConfirmed" : "DateGuestConfirmed");
+	$WhichUser_DateConfirmed = ($IsHost ? "DateHostConfirmed" : "DateGuestConfirmed");
 	$Sql = "UPDATE event 
 			SET WhichUser_DateConfirmed = '$DateConfirmed'
 			WHERE EventId = $EventId";
