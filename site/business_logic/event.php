@@ -10,15 +10,8 @@ function CreateEvent($Parameters) {
 	$Sql = "INSERT INTO event (MatchId, Location, EventDate)
 			VALUES ($MatchId, $Location, $EventDate)";
 
-	try {
-		mysqli_query($Conn, $Sql);
-		$EventId = mysqli_insert_id($Conn);
-	} catch (Exception $e) {
-		error_log($e->getMessage());
-		return "Error";
-	}
-
-	return array("EventId" => $EventId);
+	Mysqlx_Query($Sql);
+	return Mysql_GetLastCreatedId("EventId");
 }
 
 function ConfirmEvent($Parameters, $UserId, $IsHost) {
@@ -30,12 +23,5 @@ function ConfirmEvent($Parameters, $UserId, $IsHost) {
 			SET WhichUser_DateConfirmed = '$DateConfirmed'
 			WHERE EventId = $EventId";
 
-	try {
-		mysqli_query($Conn, $Sql);
-	} catch (Exception $e) {
-		error_log($e->getMessage());
-		return "Error";
-	}
-
-	return array();
+	return Mysqlx_Query($Sql);
 }

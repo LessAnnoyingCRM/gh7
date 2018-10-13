@@ -14,12 +14,5 @@ function RateUser ($Parameters, $UserId) {
 	$Sql = "INSERT INTO rating (EventId, RatingUserId, RatedUserId, Criterion, Rating, Note, DateRated)
 			VALUES ($EventId, $RatedUserId, $RatedUserId, $Criterion, $Rating, $Note, $DateRated)";
 
-	try {
-		mysqli_query($Conn, $Sql);
-	} catch (Exception $e) {
-		error_log($e->getMessage());
-		return "Error";
-	}
-
-	return array();
+	Mysqlx_Query($Sql);
 }
