@@ -14,3 +14,8 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | ba
 source ~/.nvm/nvm.sh
 nvm install node
 nvm alias default node
+
+sudo openssl dhparam -dsaparam -out /etc/ssl/certs/dhparam.pem 4096
+sudo cp /vagrant/server/api.globalhacrm.com /etc/nginx/sites-available/
+sudo ln -s /etc/nginx/sites-available/api.globalhacrm.com /etc/nginx/sites-enabled/api.globalhacrm.com
+sudo service nginx restart
