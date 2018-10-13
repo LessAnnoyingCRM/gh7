@@ -3,7 +3,7 @@
 function GetUser ($UserId) {
 	global $Conn;
 	$Sql = "SELECT * FROM user WHERE UserId = $UserId";
-	$Result = mysqli_query($Conn, $Sql);
+	$Result = Mysqlx_Query($Sql);
 	return Mysql_GetAssocArray($Result);
 }
 

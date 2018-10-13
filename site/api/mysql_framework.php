@@ -23,3 +23,17 @@ function Mysql_GetLastCreatedId ($IndexId) {
 		return "Error";
 	}
 }
+
+function Mysqlx_Query($Sql) {
+	global $Conn;
+	try {
+		$Result = mysqli_query($Conn, $Sql);
+		if ($Result === true) {
+			return array();
+		}
+		return $Result;
+	} catch (Exception $e) {
+		error_log($e->getMessage());
+		return "Error";
+	}
+}
