@@ -1,6 +1,8 @@
 <?php
 
 function SendVoiceMessage ($Parameters, $UserId) {
+	global $Conn;
+
 	$MatchId = $Parameters['MatchId'];
 	$DateSent = gmdate("Y-m-d H:i:s");
 	$Message = $Parameters['Message'];
@@ -22,6 +24,7 @@ function SendVoiceMessage ($Parameters, $UserId) {
 }
 
 function GetVoiceMessages ($Parameters, $UserId) {
+	global $Conn;
 
 	$MatchId = $Parameters['MatchId'];
 	$UserId = $UserId;
@@ -50,6 +53,8 @@ function GetVoiceMessages ($Parameters, $UserId) {
 }
 
 function GetAllConversations ($Parameters, $UserId, $IsHost) {
+	global $Conn;
+	
 	$TypeOfUserId = ($IsHost ? "HostId" : "GuestId");
 
 	$Sql = "SELECT * FROM message 

@@ -1,6 +1,8 @@
 <?php
 
 function GetMatches ($Parameters, $UserId) {
+	global $Conn;
+	
 	$User = GetUser($UserId);
 
 	if($User['IsHost'])
@@ -13,6 +15,8 @@ function GetMatches ($Parameters, $UserId) {
 }
 
 function GuestApproveMatch ($Parameters) {
+	global $Conn;
+
 	$MatchId = $Parameters['MatchId'];
 	$DateGuestApproved = gmdate("Y-m-d H:i:s");
 
@@ -31,6 +35,8 @@ function GuestApproveMatch ($Parameters) {
 }
 
 function HostConfirmMatch ($Parameters) {
+	global $Conn;
+
 	$MatchId = $Parameters['MatchId'];
 	$DateHostMatched = gmdate("Y-m-d H:i:s");
 
