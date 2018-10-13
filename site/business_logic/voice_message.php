@@ -1,22 +1,18 @@
 <?php
 
 function SendVoiceMessage ($Parameters, $UserId) {
-	global $Conn;
-
 	$MatchId = $Parameters['MatchId'];
 	$DateSent = gmdate("Y-m-d H:i:s");
 	$Message = $Parameters['Message'];
 
 	$Sql = "INSERT INTO message (SendingUserId, MatchId, DateSent, Message)
 			VALUES ($UserId, $MatchId, $DateSent, $Message)";
-	Mysqlx_Query($Conn, $Sql);
+	Mysqlx_Query($Sql);
 	
 	return Mysql_GetLastCreatedId("MessageId");
 }
 
 function GetVoiceMessages ($Parameters, $UserId) {
-	global $Conn;
-
 	$MatchId = $Parameters['MatchId'];
 	$UserId = $UserId;
 
@@ -24,7 +20,7 @@ function GetVoiceMessages ($Parameters, $UserId) {
 			WHERE MatchId = $MatchId AND DateAchived IS NULL
 			ORDER BY DateSent ASC";
 
-	$Result = Mysqlx_Query($Conn, $Sql);
+	$Result = Mysqlx_Query($Sql);
 	$MessagesArray = Mysql_GetAssocArray($Result, "MessageId");
 	$ReturnArray = array();
 	foreach($MessagesArray as $MessageId => $ThisMessage){
@@ -39,8 +35,6 @@ function GetVoiceMessages ($Parameters, $UserId) {
 }
 
 function GetAllConversations ($Parameters, $UserId, $IsHost) {
-	global $Conn;
-	
 	$TypeOfUserId = ($IsHost ? "HostId" : "GuestId");
 
 	$Sql = "SELECT * FROM message 
@@ -48,7 +42,7 @@ function GetAllConversations ($Parameters, $UserId, $IsHost) {
 			WHERE pairing.$TypeOfUserId = $TypeOfUserId AND pairing.DateUnmatched IS NULL AND message.DateAchived IS NULL
 			ORDER BY message.DateSent ASC";
 
-	$Result = Mysqlx_Query($Conn, $Sql);
+	$Result = Mysqlx_Query($Sql);
 	$MessagesArray = Mysql_GetAssocArray($Result, "MessageId");
 	$ConversationsArray = array();
 

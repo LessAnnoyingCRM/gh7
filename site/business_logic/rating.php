@@ -1,8 +1,6 @@
 <?php
 
 function RateUser ($Parameters, $UserId) {
-	global $Conn;
-	
 	$EventId = $Parameters['EventId'];
 	$RatingUserId = $UserId;
 	$RatedUserId = $Parameters['RatedUserId'];

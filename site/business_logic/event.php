@@ -1,8 +1,6 @@
 <?php
 
 function CreateEvent($Parameters) {
-	global $Conn;
-
 	$MatchId = $Parameters['MatchId'];
 	$Location = $Parameters['Location'];
 	$EventDate = $Parameters['EventDate'];
@@ -15,10 +13,8 @@ function CreateEvent($Parameters) {
 }
 
 function ConfirmEvent($Parameters, $UserId, $IsHost) {
-	global $Conn;
-	
 	$EventId = $Parameters['EventId'];
-	$WhichUser_DateConfirmed = ($IsHost ? "DateHostConfirmed" : "DateGuestConfirmed");
+	$DateConfirmed = ($IsHost ? "DateHostConfirmed" : "DateGuestConfirmed");
 	$Sql = "UPDATE event 
 			SET WhichUser_DateConfirmed = '$DateConfirmed'
 			WHERE EventId = $EventId";
