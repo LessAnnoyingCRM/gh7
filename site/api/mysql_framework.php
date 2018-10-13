@@ -13,3 +13,13 @@ function Mysql_GetAssocArray ($MysqlResult, $IndexName = false) {
 	}
 	return $DataArray;
 }
+
+function Mysql_GetLastCreatedId ($IndexId) {
+	global $Conn;
+	try {
+		if (!mysqli_affected_rows($Conn)) return "Error";
+		return array("$IndexId" => mysqli_insert_id($Conn));
+	} catch (Error $e) {
+		return "Error";
+	}
+}
