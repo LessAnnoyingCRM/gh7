@@ -58,8 +58,8 @@ function GetAllConversations ($Parameters, $UserId, $IsHost) {
 	$TypeOfUserId = ($IsHost ? "HostId" : "GuestId");
 
 	$Sql = "SELECT * FROM message 
-			LEFT JOIN match ON message.MatchId = match.MatchId
-			WHERE match.$TypeOfUserId = $TypeOfUserId AND match.DateUnmatched IS NULL AND message.DateAchived IS NULL
+			LEFT JOIN pairing ON message.MatchId = pairing.MatchId
+			WHERE pairing.$TypeOfUserId = $TypeOfUserId AND pairing.DateUnmatched IS NULL AND message.DateAchived IS NULL
 			ORDER BY message.DateSent ASC";
 
 	try {	
