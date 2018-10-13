@@ -12,14 +12,18 @@ function SendVoiceMessage ($Parameters) {
 
 	try {
 		mysqli_query($Conn, $Sql);
+		$MessageId = mysqli_insert_id($Conn);
 	} catch (Exception $e) {
-		return array("Error" => true, "Message" => $e->getMessage());
+		error_log($e->getMessage());
+		return "Error";
 	}
 
-	return array("Error" => false);
+	return array(
+		"MessageId" => $MessageId
+	);
 }
 
-function GetAllConversations ($Parameters) {
+function GetAllConversations ($Parameters, $OrderDirection='ASC') {
 
 	$UserId = $Parameters['UserId'];
 	$TypeOfUserId = ($Parameters['IsHost'] ? "HostId" : "GuestId");
@@ -27,15 +31,23 @@ function GetAllConversations ($Parameters) {
 	$Sql = "SELECT * FROM message 
 			LEFT JOIN match ON message.MatchId = match.MatchId
 			WHERE match.$TypeOfUserId = $TypeOfUserId AND match.DateUnmatched IS NULL AND message.DateAchived IS NULL
-			";
+			ORDER BY message.DateSent $OrderDirection";
 	
 	$Result = mysqli_query($Conn, $Sql);
+	$MessagesArray = Mysql_GetAssocArray($Result, "MessageId");
+	$ConversationsArray = array();
 
-	return array(
-		"Error" => false,
-		"Conversations" => $ConversationsArray
-	);
+	foreach ($MessagesArray as $MessageId => $ThisMessage) {
+		if (!is_array($ConversationsArray[$ThisMessage['MatchId']])) {
+			$ConversationsArray[$ThisMessage['MatchId']] = array("Conversation" => array());
+		}
+		$ConversationsArray[$ThisMessage['MatchId']]["Conversation"][$MessageId] = array(
+			"Message" => $ThisMessage['RecordingFile'],
+			"DateSent" => $ThisMessage['DateSent'],
+			"UserId" => $ThisMessage['SendingUserId']
+		);
+	}
+
+	return $ConversationsArray;
 }
-
-
 
