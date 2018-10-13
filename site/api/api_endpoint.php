@@ -1,28 +1,13 @@
 <?php 
 
 $Function = @$_REQUEST['Function']; //The name of the function
-$Parameters = @$_REQUEST['Parameters']; //The name of the function
+$UserId = @$_REQUEST['UserId']; // This for now it's gonna be either 1 (Guest) or 2 (Host)
+$Parameters = @$_REQUEST['Parameters']; //The parameters associated with it
+$IsHost = $UserId == 2;
 
-if ($Function == "CreateUser") {
-	
-} else if ($Function == "UpdateUser") {
-	
-} else if ($Function == "DeleteUser") {
-	
-} else if ($Function == "GetUser") {
-	
-} else if ($Function == "CreateVoiceBio") {
-	
-} else if ($Function == "UpdateVoiceBio") {
-	
-} else if ($Function == "UploadProfilePicture") {
-	
-} else if ($Function == "Login") {
-	
-} else if ($Function == "Logout") {
-	
-} else if ($Function == "Register") {
-	
+if ($Function == "GetUser") {
+	$Result = GetUser($UserId);
+	return Api_Return($Result);
 } else if ($Function == "SendVoiceMessage") {
 	
 } else if ($Function == "GetAllConversations") {
@@ -55,6 +40,14 @@ if ($Function == "CreateUser") {
 	
 } else {
 	return json_encode(array("Error" => true));
+}
+
+function Api_Return ($Result) {
+	if ($Result != "Error") {
+		return json_encode(array("Error" => false, "Content" => $Result));
+	} else {
+		return json_encode(array("Error" => true));
+	}
 }
  
 
