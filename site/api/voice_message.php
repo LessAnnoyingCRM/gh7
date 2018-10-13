@@ -9,7 +9,7 @@ function InsertVoiceMessage ($Parameters) {
 
 function GetVoiceMessages ($MatchId) {
 	$Sql = "SELECT * FROM message WHERE MatchId = $MatchId";
-	mysqli_query($Conn, $Sql);
+	return mysqli_query($Conn, $Sql);
 }
 
 
