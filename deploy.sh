@@ -2,8 +2,8 @@
 
 gitBranch=master
 gitDir=/home/gh7/git/gh7/
-gitPath=/home/gh7/git/gh7/site/api/
-livePath=/home/gh7/site/api/
+gitPath=/home/gh7/git/gh7/site/
+livePath=/home/gh7/site/
 excludeFile=/home/gh7/exclude
 
 cd $gitDir
