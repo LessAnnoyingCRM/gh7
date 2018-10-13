@@ -60,3 +60,31 @@ function GetAllConversations ($Parameters, $UserId, $IsHost) {
 	return $ConversationsArray;
 }
 
+
+use Aws\S3\S3Client;
+function _UploadMp4S3($S3Filename,$LocalFilename,$ContentType = 'audio/mpeg') {
+
+    $S3 = new Aws\S3\S3Client([
+        'version' => '2006-03-01',
+        'region' => 'us-east-1',
+        'credentials' => [
+            'key'    => AWS_KEY,
+            'secret' => AWS_SECRET,
+        ]
+    ]);
+
+    $Result = $S3->putObject([
+        'Bucket' => 'gh7',
+        'ACL' => 'public-read',
+        'Key' => $S3Filename,
+        #'ContentDisposition' => ,
+        #'ContentEncoding' => ,
+        #'ContentType' => $ContentType,
+        #'Body' => <string || resource || Psr\Http\Message\StreamInterface>,
+        'SourceFile' => $LocalFilename,
+
+    ]);
+
+    return($Result->get('ObjectURL'));
+
+}

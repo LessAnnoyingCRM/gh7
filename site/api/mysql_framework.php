@@ -1,6 +1,6 @@
 <?php 
 
-$Conn = mysqli_connect('192.168.33.16', 'gh7', 'globalhacrm', 'local');
+$Conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 function Mysql_GetAssocArray ($MysqlResult, $IndexName = false) {
 	$DataArray = array();
