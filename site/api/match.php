@@ -21,7 +21,7 @@ function GuestApproveMatch ($Parameters) {
 	$DateGuestApproved = gmdate("Y-m-d H:i:s");
 
 	$Sql = "UPDATE pairing 
-			SET DateGuestApproved = $DateGuestApproved 
+			SET DateGuestApproved = '$DateGuestApproved' 
 			WHERE MatchId = $MatchId";
 
 	try {
@@ -42,4 +42,14 @@ function HostConfirmMatch ($Parameters) {
 
 	$Sql = "UPDATE pairing
 			SET DateHostMatched = '$DateHostMatched'
+			WHERE MatchId = $MatchId";
+
+	try {
+		mysqli_query($Conn, $Sql);
+	} catch (Exception $e) {
+		error_log($e->getMessage());
+		return "Error";
+	}
+
+	return array();
 }
