@@ -18,4 +18,5 @@ sudo apt-get install -y emacs git mysql-client nginx php7.0-fpm php7.0-mysql php
 sudo openssl dhparam -dsaparam -out /etc/ssl/certs/dhparam.pem 4096
 sudo cp /vagrant/server/api.globalhacrm.com /etc/nginx/sites-available/
 sudo ln -s /etc/nginx/sites-available/api.globalhacrm.com /etc/nginx/sites-enabled/api.globalhacrm.com
+sudo rm /etc/nginx/sites-enabled/default
 sudo service nginx restart
