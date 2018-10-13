@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 function Api_Return ($Result) {
 	if ($Result != "Error") {
