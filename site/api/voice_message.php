@@ -19,9 +19,22 @@ function SendVoiceMessage ($Parameters) {
 	return array("Error" => false);
 }
 
-function GetVoiceMessages ($MatchId) {
-	$Sql = "SELECT * FROM message WHERE MatchId = $MatchId";
-	return mysqli_query($Conn, $Sql);
+function GetAllConversations ($Parameters) {
+
+	$UserId = $Parameters['UserId'];
+	$TypeOfUserId = ($Parameters['IsHost'] ? "HostId" : "GuestId");
+
+	$Sql = "SELECT * FROM message 
+			LEFT JOIN match ON message.MatchId = match.MatchId
+			WHERE match.$TypeOfUserId = $TypeOfUserId AND match.DateUnmatched IS NULL AND message.DateAchived IS NULL
+			";
+	
+	$Result = mysqli_query($Conn, $Sql);
+
+	return array(
+		"Error" => false,
+		"Conversations" => $ConversationsArray
+	);
 }
 
 
