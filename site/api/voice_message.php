@@ -23,6 +23,34 @@ function SendVoiceMessage ($Parameters) {
 	);
 }
 
+function GetVoiceMessages ($Parameters, $OrderDirection='ASC') {
+
+	$MatchId = $Parameters['MatchId'];
+	$UserId = $Parameters['UserId'];
+
+	$Sql = "SELECT * FROM message 
+			WHERE MatchId = $MatchId AND DateAchived IS NULL
+			ORDER BY DateSent $OrderDirection";
+
+	try {
+		$Result = mysqli_query($Conn, $Sql);
+		$MessagesArray = Mysql_GetAssocArray($Result, "MessageId");
+		$ReturnArray = array();
+		foreach($MessagesArray as $MessageId => $ThisMessage){
+			$ReturnArray[$MessageId] = array(
+				"Message" => $ThisMessage['RecordingFile'],
+				"DateSent" => $ThisMessage['DateSent'],
+				"UserId" => $ThisMessage['SendingUserId']
+			);
+		}
+	} catch (Exception $e) {
+		error_log($e->getMessage());
+		return "Error";
+	}
+
+	return array("Conversation" => $ReturnArray);
+}
+
 function GetAllConversations ($Parameters, $OrderDirection='ASC') {
 
 	$UserId = $Parameters['UserId'];
@@ -32,20 +60,25 @@ function GetAllConversations ($Parameters, $OrderDirection='ASC') {
 			LEFT JOIN match ON message.MatchId = match.MatchId
 			WHERE match.$TypeOfUserId = $TypeOfUserId AND match.DateUnmatched IS NULL AND message.DateAchived IS NULL
 			ORDER BY message.DateSent $OrderDirection";
-	
-	$Result = mysqli_query($Conn, $Sql);
-	$MessagesArray = Mysql_GetAssocArray($Result, "MessageId");
-	$ConversationsArray = array();
 
-	foreach ($MessagesArray as $MessageId => $ThisMessage) {
-		if (!is_array($ConversationsArray[$ThisMessage['MatchId']])) {
-			$ConversationsArray[$ThisMessage['MatchId']] = array("Conversation" => array());
+	try {	
+		$Result = mysqli_query($Conn, $Sql);
+		$MessagesArray = Mysql_GetAssocArray($Result, "MessageId");
+		$ConversationsArray = array();
+
+		foreach ($MessagesArray as $MessageId => $ThisMessage) {
+			if (!is_array($ConversationsArray[$ThisMessage['MatchId']])) {
+				$ConversationsArray[$ThisMessage['MatchId']] = array("Conversation" => array());
+			}
+			$ConversationsArray[$ThisMessage['MatchId']]["Conversation"][$MessageId] = array(
+				"Message" => $ThisMessage['RecordingFile'],
+				"DateSent" => $ThisMessage['DateSent'],
+				"UserId" => $ThisMessage['SendingUserId']
+			);
 		}
-		$ConversationsArray[$ThisMessage['MatchId']]["Conversation"][$MessageId] = array(
-			"Message" => $ThisMessage['RecordingFile'],
-			"DateSent" => $ThisMessage['DateSent'],
-			"UserId" => $ThisMessage['SendingUserId']
-		);
+	} catch (Exception $e) {
+		error_log($e->getMessage());
+		return "Error";
 	}
 
 	return $ConversationsArray;
