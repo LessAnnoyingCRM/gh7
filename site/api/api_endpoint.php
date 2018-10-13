@@ -4,7 +4,7 @@ include_once('../init.php');
 
 $Function = @$_REQUEST['Function']; //The name of the function
 $UserId = @$_REQUEST['UserId']; // This for now it's gonna be either 1 (Guest) or 2 (Host)
-$Parameters = @$_REQUEST['Parameters']; //The parameters associated with it
+$Parameters = @$_REQUEST['Parameters'] ?? array(); //The parameters associated with it
 $IsHost = $UserId == 2;
 
 if (!$Function || !$UserId) {
@@ -15,8 +15,8 @@ if (!$Function || !$UserId) {
 try {
 	echo Api_Return(
 		call_user_func_array(
-			$Function, 
-			array_merge($Parameters, array('UserId' => $UserId, 'IsHost' => $IsHost))
+			$Function,
+			array($Parameters, $UserId, $IsHost)
 		)
 	);
 } catch (Error $e) {
