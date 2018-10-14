@@ -6,5 +6,6 @@ export interface Match {
 	LanguageSkills?: LanguageSkill[],
 	VoiceMessageURL?: string,	// Set for Hosts recieving matches from guests who have sent an initial voice message
 	UserID: string,
+	OtherUserId: string
 	
 }

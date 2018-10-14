@@ -6,7 +6,7 @@ import { Svg, Path } from 'react-native-svg';
 interface Props extends Match {
 	Active: boolean,
 	// TODO: Consider changing the return types of these functions to actual types
-	OnLike: (UserID: string, navigate: any) => any,
+	OnLike: (UserID: string, Name:string, navigate: any) => any,
 	OnDislike: (UserID: string, navigate: any) => any,
 	[propName: string]: any
 };

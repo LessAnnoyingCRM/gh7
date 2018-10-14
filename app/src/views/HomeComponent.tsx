@@ -2,15 +2,16 @@
  * TODO:
  * Implement the actual home screen / landing page for the app
  */
-
+import { inject } from 'mobx-react';
 import * as React from 'react';
 import { StyleSheet, View, TouchableHighlight, Text, Image, ImageBackground } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 // import Background from '../HomeBackground.jpeg';
 
 type Props = {
-	navigation: NavigationScreenProp<{}, {}>
+	navigation: NavigationScreenProp<{}, {}>,
 };
+@inject('UserStore')
 export default class HomeComponent extends React.Component<Props> {
 	render() {
 		return (
@@ -23,12 +24,18 @@ export default class HomeComponent extends React.Component<Props> {
 				</View>
 
 				<View style={styles.HomeFooter}>
-					<TouchableHighlight onPress={() => this.props.navigation.navigate("LanguagePicker")}>
+					<TouchableHighlight onPress={() => {
+						this.props.UserStore.UserID = "1"
+						this.props.navigation.navigate("LanguagePicker");
+					}}>
 						<View style={styles.GuestSignUp}>
 							<Text style={styles.GuestSignUpText}>I’M NEW TO ST. LOUIS</Text>
 						</View>
 					</TouchableHighlight>
-						<TouchableHighlight onPress={() => this.props.navigation.navigate("LanguagePicker")}>
+					<TouchableHighlight onPress={() => {
+						this.props.UserStore.UserID = "0";
+						this.props.navigation.navigate("LanguagePicker");
+					}}>
 						<View style={styles.HostSignUp}>
 							<Text style={styles.HostSignUpText}>I want to host my new neighbors</Text>
 						</View>

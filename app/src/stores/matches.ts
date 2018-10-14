@@ -7,7 +7,7 @@ import {Alert} from 'react-native';
 export interface MatchStore {
 	InitStore: () => void,
 	CheckConnection: () => boolean
-	GetPotentialMatches: () => Match[],
+	GetPotentialMatches: () => void,
 	HandleResponse: (Type: "Like" | "Dislike", UserID: string) => void
 	HasConnection: boolean,
 	Matches: Match[],
