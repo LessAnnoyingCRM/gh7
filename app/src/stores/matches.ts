@@ -35,7 +35,7 @@ export default class Matches implements MatchStore {
 	HandleResponse = (Type: "Like" | "Dislike", OtherUserId: string) => {
 		Api.Call("HandleResponse", {OtherUserId:OtherUserId, Type:Type}).then((Result) => {
 			if(Result['NewMatch']){
-				Alert.alert("Match with UserId "+$Result['NewMatch']);
+				Alert.alert("Match with UserId "+Result['NewMatch']);
 				// ? move into messaging?
 			} else {
 				this.Matches.shift();	
