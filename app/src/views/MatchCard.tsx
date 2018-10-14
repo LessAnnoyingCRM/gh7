@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Image, StyleSheet, Text, View, ScrollView, TouchableHighlight, Alert } from 'react-native';
 import { Match } from '../types/match';
+import { Svg, Path } from 'react-native-svg';
 
 interface Props extends Match {
 	Active: boolean,
@@ -25,7 +26,7 @@ export default class MatchCard extends React.Component<Props, State> {
 			return null;
 		}
 		const { navigate } = this.props.navigation;
-		const { CoverPhotoURL, Distance, Name, OnLike, OnDislike, ProfilePictureURL, UserID } = this.props;
+		const { CoverPhotoURL, Distance, Name, OnLike, OnDislike, ProfilePictureURL, OtherUserId } = this.props;
 		return (
 			<View style={{flex: 1}}>
 				<ScrollView contentContainerStyle={Styles.CardContainer}>
@@ -80,10 +81,36 @@ export default class MatchCard extends React.Component<Props, State> {
 				</ScrollView>
 				 <View style={Styles.RatingButtons}>
 					<TouchableHighlight onPress={() => this.props.OnDislike(UserID, navigate)} underlayColor="rgba(255,255,255,0.4)">
-						<Text style={Styles.ThumbsDownButton}>(n)</Text>
+						<View style={Styles.ThumbsDownButton}>
+							<Svg 
+								width='41'
+								height='41'
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="#fff"
+								strokeWidth="2"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							>
+								<Path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></Path>
+							</Svg>
+						</View>
 					</TouchableHighlight>
 					<TouchableHighlight onPress={() => this.props.OnLike(UserID, navigate)} underlayColor="rgba(255,255,255,0.4)">
-						<Text style={Styles.ThumbsUpButton}>(y)</Text>
+						<View style={Styles.ThumbsUpButton}>
+							<Svg
+								width='41'
+								height='41'
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="#fff"
+								strokeWidth="2"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							>
+								<Path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></Path>
+							</Svg>
+						</View>
 					</TouchableHighlight>
 				 </View>
 			</View>
@@ -153,8 +180,9 @@ const Styles = StyleSheet.create({
 		backgroundColor: "#bbb",
 		fontSize: 40,
 		color: "#fff",
-		textAlign: "center",
+		alignItems: "center",
 		lineHeight: 73,
+		padding: 20
 	},
 	ThumbsUpButton: {
 		flexDirection: "row",
@@ -165,7 +193,8 @@ const Styles = StyleSheet.create({
 		backgroundColor: "#7DB66F",
 		fontSize: 40,
 		color: "#fff",
-		textAlign: "center",
+		alignItems: "center",
 		lineHeight: 73,
-	},
+		padding: 20
+	}
 });

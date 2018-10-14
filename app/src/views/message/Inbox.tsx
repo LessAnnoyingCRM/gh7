@@ -33,15 +33,22 @@ export default class Inbox extends React.Component<Props> {
 
         return (
             <View style={styles.container}>
+                <View style={styles.ChatsHeader}>
+                    <Text style={{fontSize:30, letterSpacing:2, color:'#000'}}>{"YOUR CHATS"}</Text>
+
+                </View>
                 <ScrollView>
                     {_.map(SortedData, (Message: Message) => {
                         return (
-                            <ConversationSummary
-                                key={Message.ConversationId}
-                                Messages={GroupedData[Message.ConversationId]} 
-                                ConversationId={Message.ConversationId} 
-                                navigation={navigation}
-                            />
+                            <View style={styles.PastChat}>
+                                <ConversationSummary
+                                    key={Message.ConversationId}
+                                    Messages={GroupedData[Message.ConversationId]} 
+                                    ConversationId={Message.ConversationId} 
+                                    navigation={navigation}
+                                />
+                            </View>
+                           
                         );
                     }, this)}
                 </ScrollView>                 
@@ -53,11 +60,25 @@ export default class Inbox extends React.Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F5FCFF',
+        backgroundColor: '#fff',
     },
     welcome: {
         fontSize: 20,
         textAlign: 'center',
         margin: 10,
-    }
+    },
+    ChatsHeader: {
+        height: 100,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderBottomColor: '#999',
+        borderBottomWidth: 1,
+    },
+    PastChat: {
+        backgroundColor: '#fff',
+        borderBottomColor: '#999',
+        borderBottomWidth: 1,
+        
+    },
 });

@@ -26,13 +26,13 @@ CREATE TABLE `event` (
   `EventId` int(11) NOT NULL AUTO_INCREMENT,
   `MatchId` int(11) NOT NULL,
   `Location` varchar(250) DEFAULT NULL,
-  `EventDate` date NOT NULL,
+  `EventDate` datetime NOT NULL,
   `DateHostConfirmed` datetime DEFAULT NULL,
   `DateGuestConfirmed` datetime DEFAULT NULL,
   `EventHappened` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`EventId`),
   KEY `MatchId` (`MatchId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `event` (
 
 LOCK TABLES `event` WRITE;
 /*!40000 ALTER TABLE `event` DISABLE KEYS */;
-INSERT INTO `event` VALUES (1,1,'3325 Brookview Dr','2018-10-16',NULL,NULL,NULL);
+INSERT INTO `event` VALUES (1,1,'3325 Brookview Dr','2018-10-16 00:00:00',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +86,7 @@ CREATE TABLE `message` (
   PRIMARY KEY (`MessageId`),
   KEY `UserId` (`SendingUserId`),
   KEY `MatchId` (`MatchId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,6 +95,7 @@ CREATE TABLE `message` (
 
 LOCK TABLES `message` WRITE;
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
+INSERT INTO `message` VALUES (1,1,2,'2018-10-10 05:00:02','https://s3.amazonaws.com/gh7/1.mp4',NULL),(2,2,2,'2018-10-10 05:01:02','https://s3.amazonaws.com/gh7/1.mp4',NULL),(4,1,3,'2018-10-09 05:00:02','https://s3.amazonaws.com/gh7/1.mp4',NULL),(5,1,2,'2018-10-10 05:02:02','https://s3.amazonaws.com/gh7/1.mp4',NULL);
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +115,7 @@ CREATE TABLE `pairing` (
   `DateUnmatched` datetime DEFAULT NULL,
   `DateLastPresented` datetime DEFAULT NULL,
   PRIMARY KEY (`MatchId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +124,7 @@ CREATE TABLE `pairing` (
 
 LOCK TABLES `pairing` WRITE;
 /*!40000 ALTER TABLE `pairing` DISABLE KEYS */;
-INSERT INTO `pairing` VALUES (2,1,2,NULL,NULL,NULL,NULL),(3,1,2,NULL,NULL,NULL,NULL);
+INSERT INTO `pairing` VALUES (2,1,2,'2018-10-14 04:29:29','2018-10-14 04:33:10',NULL,NULL),(3,1,2,NULL,NULL,NULL,NULL),(4,1,2,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `pairing` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,7 +185,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Mitch Eagles','mitch.eagles@lessannoyingcrm.com','$2a$92$VL5I8lFuvLUfTteV2S2h5uJRdbepSbm5PiCzBceFUP8J42q/s/wxq','2018-10-13 01:17:53',NULL,NULL,NULL,1),(2,'Olga K','olya@gmail.com','$2a$92$VL5I8lFuvLUfTteV2S2h5uJRdbepSbm5PiCzBceFUP8J42q/s/wxq','2018-10-13 01:56:29',NULL,NULL,NULL,0);
+INSERT INTO `user` VALUES (1,'Olga K','olya@gmail.com','$2a$92$VL5I8lFuvLUfTteV2S2h5uJRdbepSbm5PiCzBceFUP8J42q/s/wxq','2018-10-13 01:56:29',NULL,NULL,NULL,0),(2,'Mitch Eagles','mitch.eagles@lessannoyingcrm.com','$2a$92$VL5I8lFuvLUfTteV2S2h5uJRdbepSbm5PiCzBceFUP8J42q/s/wxq','2018-10-13 01:17:53',NULL,NULL,NULL,1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -222,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-14  1:24:11
+-- Dump completed on 2018-10-14  5:36:06

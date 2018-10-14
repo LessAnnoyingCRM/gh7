@@ -1,0 +1,50 @@
+# returns details for a user
+GetPotentialMatches(Parameters=[],$UserId=1)
+|-> [UserId=>2,UserId=>3]; # array of UserIds of potential matches
+https://local.lacathon.com/api_endpoint.php?Function=GetUser&Parameters={"UserId":1}&UserId=1
+
+# Creates an event
+CreateEvent(Parameters=[MatchId=>1,Location=>'123 Main St',EventDate=>'2018-03-10 18:00'],$UserId=1)
+|-> [EventId=>1];
+https://local.lacathon.com/api_endpoint.php?Function=CreateEvent&Parameters={"MatchId":1,"Location":"123 MainSt","EventDate":"2018-03-10"}&UserId=1
+
+# Confirm an Event
+ConfirmEvent(Parameters=[EventId=>1],UserId=1)
+|-> [ConfirmedDate=>'2018-10-13 05:00:03']
+https://local.lacathon.com/api_endpoint.php?Function=ConfirmEvent&Parameters={"EventId":1}&UserId=1
+
+# Create a match
+CreateMatch(Parameters=[HostId=>1],UserId=1)
+|-> [MatchId=>1]
+https://local.lacathon.com/api_endpoint.php?Function=CreateMatch&Parameters={"HostId":2}&UserId=1
+
+# returns list of candidate matches for a guest to view
+GetPotentialMatches(Parameters=[],$UserId=1)
+|-> [UserId=>2,UserId=>3] # array of UserIds of potential matches
+https://local.lacathon.com/api_endpoint.php?Function=GetPotentialMatches&UserId=1
+
+# returns a list of matches
+GetMatches(Parameters=[],$UserId=1)
+|-> [{MatchObject1},{MatchObject2}] # array of matches
+https://local.lacathon.com/api_endpoint.php?Function=GetMatches&UserId=1
+
+GuestApproveMatch(Parameters=[MatchId=>2])
+|-> [DateGuestApproved=>2018-10-04 05:00:00]
+https://local.lacathon.com/api_endpoint.php?Function=GuestApproveMatch&Parameters={"MatchId":2}&UserId=1
+
+HostConfirmMatch(Parameters=[MatchId=>2])
+|-> [DateHostMatched=>2018-10-04 05:00:00]
+https://local.lacathon.com/api_endpoint.php?Function=HostConfirmMatch&Parameters={"MatchId":2}&UserId=1
+
+# uploads an audio file to S3
+SendVoiceMessage(Parameters=[MatchId=>1],$UserId=1) # also attach $_FILES
+|-> [MessageId=>1]; # MessageId of the stored message
+https://local.lacathon.com/api_endpoint.php?Function=SendVoiceMessage&Parameters={"MatchId":1}&UserId=1
+
+GetVoiceMessages(Parameters=[MatchId=>1])
+|-> [{MessageObject1},{MessageObject2}]
+https://local.lacathon.com/api_endpoint.php?Function=GetVoiceMessages&Parameters={"MatchId":2}&UserId=1
+
+GetAllConversations(Parameters=[],UserId=1)
+|->[
+https://local.lacathon.com/api_endpoint.php?Function=GetAllConversations&UserId=1
