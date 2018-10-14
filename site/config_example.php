@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 define('AWS_KEY','');
 define('AWS_SECRET','');
 
-define('DB_HOST','192.168.33.16');
+define('DB_HOST','localhost');
 define('DB_USER','gh7');
 define('DB_PASSWORD','globalhacrm');
 define('DB_DATABASE','gh7');

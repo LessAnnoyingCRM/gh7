@@ -1,15 +1,39 @@
 <?php
 
 function SendVoiceMessage ($Parameters, $UserId) {
-	$MatchId = $Parameters['MatchId'];
-	$DateSent = gmdate("Y-m-d H:i:s");
-	$Message = $Parameters['Message'];
 
-	$Sql = "INSERT INTO message (SendingUserId, MatchId, DateSent, Message)
-			VALUES ($UserId, $MatchId, $DateSent, $Message)";
+    // there must be a $_FILES associated with the request
+    if ($_FILES) {
+        $UploadInfo = array_pop($_FILES);
+        $LocalFilename = $UploadInfo['tmp_name'];
+        $FileType = $UploadInfo['type'];
+    }
+    else{
+        return array();
+    }
+
+    // add an entry to the DB about the file
+	$MatchId = $Parameters['MatchId'] ?? 0;
+    $SendingUserId = $UserId;
+	$DateSent = gmdate("Y-m-d H:i:s");
+	$Sql = "INSERT INTO message (SendingUserId, MatchId, DateSent)
+			VALUES ($SendingUserId, $MatchId, '$DateSent')";
 	Mysqlx_Query($Sql);
-	
-	return Mysql_GetLastCreatedId("MessageId");
+    $MessageIdReturn = Mysql_GetLastCreatedId("MessageId");
+    $MessageId = $MessageIdReturn['MessageId'];
+
+    // upload the file
+    $S3Filename = $MessageId.'.mp4';
+    $Url = _UploadMp4S3($S3Filename,$LocalFilename,$FileType);
+
+    // update the DB with the url
+    $Sql = "UPDATE message
+            SET MessageUrl='$Url'
+            WHERE MessageId=$MessageId
+            ";
+    Mysqlx_Query($Sql);
+
+    return array('MessageId'=>$MessageId);
 }
 
 function GetVoiceMessages ($Parameters, $UserId) {
