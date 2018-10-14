@@ -6,19 +6,33 @@ function CreateMatch ($Parameters, $UserId) {
 	return Mysql_GetLastCreatedId("MatchId");
 }
 
-function GetPotentialMatches($Parameters, $UserId) {
+function GetPotentialMatches($Parameters, $UserId, $IsHost) {
 
     $User = _GetUser($UserId);
 
     if ($User['IsHost']) {
-        $Sql = "SELECT UserId FROM user WHERE !IsHost";
+        $Sql = "SELECT user.UserId AS OtherUserId, user.Name, user.Picture AS ProfilePictureUrl, pairing.MatchId, user.Profile
+        		FROM pairing
+        		LEFT JOIN user ON user.UserId = pairing.GuestId 
+        		WHERE DateGuestApproved IS NOT NULL AND DateUnmatched IS NULL AND pairing.HostId = $UserId";
     }
     else {
-        $Sql = "SELECT UserId FROM user WHERE IsHost";
+        $Sql = "SELECT user.UserId AS OtherUserId, user.Name, user.Picture AS ProfilePictureUrl, pairing.MatchId, user.Profile
+        		FROM pairing 
+        		LEFT JOIN user ON user.UserId = pairing.HostId
+        		WHERE DateHostMatched IS NULL AND DateUnmatched IS NULL AND pairing.GuestId = $UserId";
     }
 
     $Result = Mysqlx_Query($Sql);
-    return Mysql_GetAssocArray($Result);
+    $ResultArray = Mysql_GetAssocArray($Result, "MatchId");
+
+    foreach($ResultArray as &$ThisRow) {
+    	$ProfileData = json_decode($ThisRow['Profile'], true);
+    	$ThisRow['Distance'] = @$ProfileData['Distance'];
+    	$ThisRow['CoverPhotoURL'] = @$ProfileData['CoverPhotoURL'];
+    }
+
+    return $ResultArray;
 }
 
 function GetMatches ($Parameters, $UserId, $IsHost) {
@@ -30,6 +44,16 @@ function GetMatches ($Parameters, $UserId, $IsHost) {
 	
 	$Result = Mysqlx_Query($Sql);
 	return Mysql_GetAssocArray($Result);
+}
+
+function HandleResponse ($Parameters, $UserId, $IsHost) {
+
+	$OtherUserId = $Parameters['OtherUserId'];
+	$ThisUserTypeId = ($IsHost ? $Parameters)
+
+	$Sql = "UPDATE pairing 
+			LEFT JOIN ON pairing.MatchId = "
+
 }
 
 function GuestApproveMatch ($Parameters) {
