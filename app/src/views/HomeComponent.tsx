@@ -14,20 +14,22 @@ type Props = {
 export default class HomeComponent extends React.Component<Props> {
 	render() {
 		const { navigate } = this.props.navigation;
-		const HomeBackground = 'https://s3-alpha.figma.com/img/3b55/5d5a/3fa43b291c3792cb44c208ae856ed07e';
+		const HomeBackground = 'https://upload.wikimedia.org/wikipedia/commons/4/40/Italian_Risotto.png';
+		// const HomeBackground = 'https://s3.amazonaws.com/gh7/images/assets/home_background.jpg';
+		const Overlay = 'https://s3.amazonaws.com/gh7/images/assets/home_overlay.png';
 		return (
+			// require('../HomeBackground.jpeg')
+			<ImageBackground source={require('../HomeBackground.jpeg')} style={{width: '100%', height: '100%'}} >
+			
 			<View style={styles.container}>
-			
-				{/* <Image source={{uri: HomeBackground}}/> */}
-				<ImageBackground source={{uri: HomeBackground}} style={{width: '100%', height: '100%'}}>
-			
+				<View style={{marginTop: 90, padding:15, backgroundColor: '#00000080'}}>
 					<Text style={styles.WelcomeHome}>WELCOME HOME</Text>
 					<Text style={styles.SubTitle}>Forge unbreakable bonds over unforgettable meals</Text>
-
-				</ImageBackground>
-				<TouchableHighlight onPress={() => navigate("Matches")}>
+				</View>
+				
+				{/* <TouchableHighlight onPress={() => navigate("Max2tches")}>
 					<Text>Go to Matches</Text> 
-				</TouchableHighlight>
+				</TouchableHighlight> */}
 
 				<View style={styles.HomeFooter}>
 					<TouchableHighlight>
@@ -41,8 +43,8 @@ export default class HomeComponent extends React.Component<Props> {
 						</View>
 					</TouchableHighlight>
 				</View>
-				
 			</View>
+		</ImageBackground>
 		);
 	}
 }
@@ -51,18 +53,17 @@ const styles = StyleSheet.create({
 		container: {
 			flex: 1,
 			// justifyContent: 'center',
-			// alignItems: 'center',
+			alignItems: 'center',
 			// backgroundColor: '#7DB66F',
-			flexDirection: 'column',
+			// flexDirection: 'column',
 		},
 		WelcomeHome: {
-			fontSize: 35,
+			fontSize: 40,
 			fontWeight: 'bold',
 			lineHeight: 45,
 			letterSpacing: 3.3,
 			textAlign: 'center',
 			color: '#fff',
-			marginTop: 90,
 		},
 		SubTitle: {
 			textAlign: 'center',
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
 			justifyContent: 'center',
 		},
 		HostSignUp: {
-			backgroundColor: '#000',
+			backgroundColor:'#00000099',
 			height: 40,
 			justifyContent: 'center',
 		},
