@@ -12,7 +12,7 @@ import _ from 'underscore';
 
 import { View, Text, FlatList, StyleSheet, Image, TouchableHighlight, Alert } from 'react-native';
 import ConversationData from '../../stores/conversations';
-import Users from '../../stores/users';
+// import Users from '../../stores/users';
 
 export default class Conversation extends React.Component {
     PlayMessage = () => {
