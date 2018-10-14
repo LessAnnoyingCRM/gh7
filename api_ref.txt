@@ -43,4 +43,8 @@ https://local.lacathon.com/api_endpoint.php?Function=SendVoiceMessage&Parameters
 
 GetVoiceMessages(Parameters=[MatchId=>1])
 |-> [{MessageObject1},{MessageObject2}]
-https://local.lacathon.com/api_endpoint.php?Function=SendVoiceMessage&Parameters={"MatchId":2}&UserId=1
+https://local.lacathon.com/api_endpoint.php?Function=GetVoiceMessages&Parameters={"MatchId":2}&UserId=1
+
+GetAllConversations(Parameters=[],UserId=1)
+|->[
+https://local.lacathon.com/api_endpoint.php?Function=GetAllConversations&UserId=1
