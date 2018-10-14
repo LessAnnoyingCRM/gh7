@@ -5,11 +5,11 @@ import Stores from '../stores/index';
 
 type Props = {}
 export default class App extends React.Component<Props> {
-  render() {
-    return (
-        <Provider {...Stores}>
-          <Router />
-        </Provider>
-    );
-  }
+	render() {
+		return (
+				<Provider {...Stores}>
+					<Router />
+				</Provider>
+		);
+	}
 }
