@@ -1,13 +1,13 @@
 export default {
     1: {
         UserId: 1,
-        Name: "Mitch Eagles",
+        Name: "Olga K",
         IsHost: true,
-        Picture: 'https://s3.amazonaws.com/gh7/images/people/23.jpg'
+        Picture: 'https://s3.amazonaws.com/gh7/images/people/2.jpg'
     },
     2: {
         UserId: 2,
-        Name: "Jessy Landis",
+        Name: "Jesse Smith",
         IsHost: false,
         Picture: 'https://s3.amazonaws.com/gh7/images/people/18.jpg'
     },
