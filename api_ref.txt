@@ -1,8 +1,3 @@
-# returns list of candidate matches
-GetPotentialMatches(Parameters=[],$UserId=1)
-|-> [UserId=>2,UserId=>3]; # array of UserIds of potential matches
-https://local.lacathon.com/api_endpoint.php?Function=GetPotentialMatches&UserId=1
-
 # returns details for a user
 GetPotentialMatches(Parameters=[],$UserId=1)
 |-> [UserId=>2,UserId=>3]; # array of UserIds of potential matches
@@ -16,7 +11,24 @@ https://local.lacathon.com/api_endpoint.php?Function=SendVoiceMessage&Parameters
 # Creates an event
 CreateEvent(Parameters=[MatchId=>1,Location=>'123 Main St',EventDate=>'2018-03-10 18:00'],$UserId=1)
 |-> [EventId=>1];
+https://local.lacathon.com/api_endpoint.php?Function=CreateEvent&Parameters={"MatchId":1,"Location":"123 MainSt","EventDate":"2018-03-10"}&UserId=1
 
 # Confirm an Event
 ConfirmEvent(Parameters=[EventId=>1],UserId=1)
 |-> [ConfirmedDate=>'2018-10-13 05:00:03'];
+https://local.lacathon.com/api_endpoint.php?Function=ConfirmEvent&Parameters={"EventId":1}&UserId=1
+
+# Create a match
+CreateMatch(Parameters=[HostId=>1],UserId=1)
+|-> [MatchId=>1];
+https://local.lacathon.com/api_endpoint.php?Function=CreateMatch&Parameters={"HostId":2}&UserId=1
+
+# returns list of candidate matches for a guest to view
+GetPotentialMatches(Parameters=[],$UserId=1)
+|-> [UserId=>2,UserId=>3]; # array of UserIds of potential matches
+https://local.lacathon.com/api_endpoint.php?Function=GetPotentialMatches&UserId=1
+
+# returns a list of matches
+GetMatches(Parameters=[],$UserId=1)
+|-> [{MatchObject1},{MatchObject2}]; # array of matches
+https://local.lacathon.com/api_endpoint.php?Function=GetMatches&UserId=1

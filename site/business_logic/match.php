@@ -21,10 +21,8 @@ function GetPotentialMatches($Parameters, $UserId) {
     return Mysql_GetAssocArray($Result);
 }
 
-function GetMatches ($Parameters, $UserId) {
-	$User = _GetUser($UserId);
-
-	if ($User['IsHost']) {
+function GetMatches ($Parameters, $UserId, $IsHost) {
+	if ($IsHost) {
 		$Sql = "SELECT * FROM pairing WHERE HostId = $UserId";
 	} else {
 		$Sql = "SELECT * FROM pairing WHERE GuestId = $UserId";
