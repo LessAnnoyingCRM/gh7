@@ -5,7 +5,6 @@
  */
 import React from 'react';
 import _ from 'underscore';
-<<<<<<< HEAD
 import Api from '../../utils/api';
 import { inject, observer } from 'mobx-react';
 
