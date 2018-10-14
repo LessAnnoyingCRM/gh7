@@ -26,7 +26,7 @@ export default class MatchCard extends React.Component<Props, State> {
 			return null;
 		}
 		const { navigate } = this.props.navigation;
-		const { CoverPhotoURL, Distance, Name, OnLike, OnDislike, ProfilePictureURL, UserID } = this.props;
+		const { CoverPhotoURL, Distance, Name, OnLike, OnDislike, ProfilePictureURL, OtherUserId } = this.props;
 		return (
 			<View style={{flex: 1}}>
 				<ScrollView contentContainerStyle={Styles.CardContainer}>

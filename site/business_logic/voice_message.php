@@ -33,52 +33,56 @@ function SendVoiceMessage ($Parameters, $UserId) {
             ";
     Mysqlx_Query($Sql);
 
-    return array('MessageId'=>$MessageId);
+    return array('MessageId'=>$MessageId,'MessageUrl'=>$Url);
 }
 
-function GetVoiceMessages ($Parameters, $UserId) {
+function GetVoiceMessages ($Parameters) {
 	$MatchId = $Parameters['MatchId'];
-	$UserId = $UserId;
 
-	$Sql = "SELECT * FROM message 
-			WHERE MatchId = $MatchId AND DateAchived IS NULL
+	$Sql = "SELECT MessageId,SendingUserId,DateSent,MessageUrl FROM message
+			WHERE MatchId = $MatchId AND DateArchived IS NULL
 			ORDER BY DateSent ASC";
 
 	$Result = Mysqlx_Query($Sql);
-	$MessagesArray = Mysql_GetAssocArray($Result, "MessageId");
+	$MessagesArray = Mysql_GetAssocArray($Result);
+
 	$ReturnArray = array();
-	foreach($MessagesArray as $MessageId => $ThisMessage){
-		$ReturnArray[$MessageId] = array(
-			"Message" => $ThisMessage['RecordingFile'],
-			"DateSent" => $ThisMessage['DateSent'],
-			"UserId" => $ThisMessage['SendingUserId']
-		);
-	}
-	
-	return array("Conversation" => $ReturnArray);
+	foreach($MessagesArray as $ThisMessage){
+	    $ReturnArray['Conversation'][$ThisMessage['MessageId']] =
+            array(
+                "Message" => $ThisMessage['MessageUrl'],
+                "DateSent" => $ThisMessage['DateSent'],
+                "UserId" => $ThisMessage['SendingUserId']
+            );
+    }
+
+    return $ReturnArray;
 }
 
-function GetAllConversations ($Parameters, $UserId, $IsHost) {
-	$TypeOfUserId = ($IsHost ? "HostId" : "GuestId");
+function GetAllConversations ($Parameters, $UserId) {
 
-	$Sql = "SELECT * FROM message 
-			LEFT JOIN pairing ON message.MatchId = pairing.MatchId
-			WHERE pairing.$TypeOfUserId = $TypeOfUserId AND pairing.DateUnmatched IS NULL AND message.DateAchived IS NULL
+    // Get all the messages that the user is participating in
+	$Sql = "SELECT message.* FROM message,pairing 
+			WHERE message.MatchId=pairing.MatchId
+			  AND pairing.DateUnmatched IS NULL
+			  AND message.DateArchived IS NULL
+			  AND (pairing.GuestId=$UserId OR pairing.HostId=$UserId)
 			ORDER BY message.DateSent ASC";
-
 	$Result = Mysqlx_Query($Sql);
-	$MessagesArray = Mysql_GetAssocArray($Result, "MessageId");
+	$MessagesArray = Mysql_GetAssocArray($Result);
+
+	// reformat the messages per conversation
 	$ConversationsArray = array();
 
-	foreach ($MessagesArray as $MessageId => $ThisMessage) {
-		if (!is_array($ConversationsArray[$ThisMessage['MatchId']])) {
-			$ConversationsArray[$ThisMessage['MatchId']] = array("Conversation" => array());
-		}
-		$ConversationsArray[$ThisMessage['MatchId']]["Conversation"][$MessageId] = array(
-			"Message" => $ThisMessage['RecordingFile'],
-			"DateSent" => $ThisMessage['DateSent'],
-			"UserId" => $ThisMessage['SendingUserId']
-		);
+	foreach ($MessagesArray as $ThisMessage) {
+
+	    $ConversationsArray[$ThisMessage['MatchId']]["Conversation"][$ThisMessage['MessageId']] =
+            array(
+                "Message" => $ThisMessage['MessageUrl'],
+                "DateSent" => $ThisMessage['DateSent'],
+                "UserId" => $ThisMessage['SendingUserId']
+            );
+
 	}
 
 	return $ConversationsArray;

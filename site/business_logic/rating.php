@@ -1,6 +1,6 @@
 <?php
 
-function RateUser ($Parameters, $UserId) {
+/*function RateUser ($Parameters, $UserId) {
 	$EventId = $Parameters['EventId'];
 	$RatingUserId = $UserId;
 	$RatedUserId = $Parameters['RatedUserId'];
@@ -14,3 +14,4 @@ function RateUser ($Parameters, $UserId) {
 
 	Mysqlx_Query($Sql);
 }
+*/

@@ -3,4 +3,7 @@ export type Message = {
     MessageId: number,
     FromUserId: number,
     DateSent: string,
+    DateCleaned: string,
+    TimeCleaned: string,
+    MessageLength: string,
 };
