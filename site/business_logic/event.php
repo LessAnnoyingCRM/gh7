@@ -1,12 +1,15 @@
 <?php
 
 function CreateEvent($Parameters) {
+
 	$MatchId = $Parameters['MatchId'];
 	$Location = $Parameters['Location'];
 	$EventDate = $Parameters['EventDate'];
 
 	$Sql = "INSERT INTO event (MatchId, Location, EventDate)
-			VALUES ($MatchId, $Location, $EventDate)";
+			VALUES ($MatchId, '$Location', '$EventDate')";
+
+	//echo $Sql;exit;
 
 	Mysqlx_Query($Sql);
 	return Mysql_GetLastCreatedId("EventId");
