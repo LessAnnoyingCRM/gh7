@@ -21,3 +21,6 @@ Vagrantfile text eol=lf
 *.ico binary
 *.phar binary
 composer binary
+*.jar binary
+*.bat binary
+*.ttf binary
