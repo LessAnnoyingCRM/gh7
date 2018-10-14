@@ -24,7 +24,7 @@ function GetPotentialMatches($Parameters, $UserId, $IsHost) {
     }
 
     $Result = Mysqlx_Query($Sql);
-    $ResultArray = Mysql_GetAssocArray($Result, "MatchId");
+    $ResultArray = Mysql_GetAssocArray($Result);
 
     foreach($ResultArray as &$ThisRow) {
     	$ProfileData = json_decode($ThisRow['Profile'], true);
