@@ -16,7 +16,6 @@ const NavOptions: DrawerNavigatorConfig = {
 
 export default DrawerNavigator({
     Matches: { screen: MatchContainer },
-    RecordMatchMessage: { screen: RecordMatchMessage },
     Home: { screen: HomeComponent },
     Current: { screen: Conversation },
     History: { screen: Inbox },
