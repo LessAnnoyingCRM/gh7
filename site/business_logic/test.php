@@ -5,10 +5,17 @@ function TestHelloWorld() {
 }
 
 function TestS3() {
-    $S3Filename = 'test.mp4';
-    $LocalFilename = '/tmp/Sample.mp3';
-    $Url = _UploadMp4S3($S3Filename,$LocalFilename);
 
-    return(array('FileUrl'=>$Url));
+    if ($_FILES) {
+        $FileInfo = array_pop($_FILES);
+        $S3Filename = $FileInfo['name'];
+        $LocalFilename = $FileInfo['tmp_name'];
+        $FileType = $FileInfo['type'];
+        $Url = _UploadMp4S3($S3Filename,$LocalFilename,$FileType);
+        return(array('FileUrl'=>$Url));
+    }
+    else{
+        return array();
+    }
 }
 

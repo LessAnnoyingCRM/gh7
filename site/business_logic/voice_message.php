@@ -62,7 +62,7 @@ function GetAllConversations ($Parameters, $UserId, $IsHost) {
 
 
 use Aws\S3\S3Client;
-function _UploadMp4S3($S3Filename,$LocalFilename,$ContentType = 'audio/mpeg') {
+function _UploadMp4S3($S3Filename,$LocalFilename,$ContentType = 'audio/mp4') {
 
     $S3 = new Aws\S3\S3Client([
         'version' => '2006-03-01',
