@@ -46,16 +46,6 @@ function GetMatches ($Parameters, $UserId, $IsHost) {
 	return Mysql_GetAssocArray($Result);
 }
 
-function HandleResponse ($Parameters, $UserId, $IsHost) {
-
-	$OtherUserId = $Parameters['OtherUserId'];
-	$ThisUserTypeId = ($IsHost ? $Parameters)
-
-	$Sql = "UPDATE pairing 
-			LEFT JOIN ON pairing.MatchId = "
-
-}
-
 function GuestApproveMatch ($Parameters) {
 	$MatchId = $Parameters['MatchId'];
 	$DateGuestApproved = gmdate("Y-m-d H:i:s");
