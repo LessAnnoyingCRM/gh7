@@ -63,7 +63,7 @@ export default class LanguagePicker extends React.Component<Props, State> {
 					<View style={Styles.Footer}>
 						<TouchableHighlight
 							// TODO: Make this navigate to the language rating screen
-							onPress={() => this.props.navigation.navigate('Home')}
+							onPress={() => this.props.navigation.navigate('Matches')}
 						>
 							<View style={CommonStyles.Button}>
 								<Text style={CommonStyles.ButtonText}>CONTINUE</Text>

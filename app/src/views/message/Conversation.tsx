@@ -33,6 +33,10 @@ export default class Conversation extends React.Component<Props, State> {
         this.props.navigation.navigate("Matches");
     }
 
+    RateUser() {
+        this.props.navigation.navigate("UserRating");
+    }
+
     render() {
         let MatchId = this.props.navigation.getParam("MatchId", 2);
 
@@ -78,7 +82,7 @@ export default class Conversation extends React.Component<Props, State> {
                             </TouchableHighlight>
                         </View>
                         <View style={styles.ConfirmMetButton}>
-                            <TouchableHighlight>
+                            <TouchableHighlight onPress={() => this.RateUser()}>
                                 <View style={{alignItems:'center'}}>
                                     <View>
                                         <Svg
