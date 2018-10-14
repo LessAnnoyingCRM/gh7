@@ -19,11 +19,11 @@ function SendVoiceMessage ($Parameters, $UserId) {
 	$Sql = "INSERT INTO message (SendingUserId, MatchId, DateSent)
 			VALUES ($SendingUserId, $MatchId, '$DateSent')";
 	Mysqlx_Query($Sql);
-    $MessageId = Mysql_GetLastCreatedId("MessageId");
-
+    $MessageIdReturn = Mysql_GetLastCreatedId("MessageId");
+    $MessageId = $MessageIdReturn['MessageId'];
 
     // upload the file
-    $S3Filename = $MessageId['MessageId'];
+    $S3Filename = $MessageId['MessageId'].'.mp4';
     $Url = _UploadMp4S3($S3Filename,$LocalFilename,$FileType);
 
     // update the DB with the url
