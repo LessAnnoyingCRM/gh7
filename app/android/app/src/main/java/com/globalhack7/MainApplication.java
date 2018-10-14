@@ -32,8 +32,6 @@ public class MainApplication extends Application implements ReactApplication {
             new SvgPackage(),
             new RNFSPackage(),
           new VectorIconsPackage(),
-          new SvgPackage(),
-          new RNFSPackage(),
           new AudioPackage()
       );
     }
