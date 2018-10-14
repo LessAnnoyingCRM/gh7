@@ -36,26 +36,15 @@ function SendVoiceMessage ($Parameters, $UserId) {
     return array('MessageId'=>$MessageId);
 }
 
-function GetVoiceMessages ($Parameters, $UserId) {
+function GetVoiceMessages ($Parameters) {
 	$MatchId = $Parameters['MatchId'];
-	$UserId = $UserId;
 
-	$Sql = "SELECT * FROM message 
-			WHERE MatchId = $MatchId AND DateAchived IS NULL
+	$Sql = "SELECT MessageId,SendingUserId,DateSent,MessageUrl FROM message
+			WHERE MatchId = $MatchId AND DateArchived IS NULL
 			ORDER BY DateSent ASC";
 
 	$Result = Mysqlx_Query($Sql);
-	$MessagesArray = Mysql_GetAssocArray($Result, "MessageId");
-	$ReturnArray = array();
-	foreach($MessagesArray as $MessageId => $ThisMessage){
-		$ReturnArray[$MessageId] = array(
-			"Message" => $ThisMessage['RecordingFile'],
-			"DateSent" => $ThisMessage['DateSent'],
-			"UserId" => $ThisMessage['SendingUserId']
-		);
-	}
-	
-	return array("Conversation" => $ReturnArray);
+	return Mysql_GetAssocArray($Result);
 }
 
 function GetAllConversations ($Parameters, $UserId, $IsHost) {
