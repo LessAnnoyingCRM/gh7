@@ -2,6 +2,7 @@ import { observable } from 'mobx';
 import { Match } from '../types/match';
 import Api from '../utils/api';
 import _ from 'underscore';
+import { Alert } from 'react-native';
 
 export interface MatchStore {
 	InitStore: () => void,
@@ -32,19 +33,21 @@ export default class Matches implements MatchStore {
 		return false;
 	}
 	
-	HandleResponse = (Type: "Like" | "Dislike", UserID: string) => {
-		if (Type === "Like") {
-			// TODO: Call API and mark that we liked this match
-			this.Matches.shift();
-		} else {
-			this.Matches.shift();
-		}
+	HandleResponse = (Type: "Like" | "Dislike", OtherUserId: string) => {
+		Api.Call("HandleResponse", {OtherUserId:OtherUserId, Type:Type}).then((Result) => {
+			if(Result['NewMatch']){
+				Alert.alert("Match with UserId "+Result['NewMatch']);
+				// ? move into messaging?
+			} else {
+				this.Matches.shift();	
+			}
+		});
 	}
 
 	GetPotentialMatches = () => {
 		let PotentialMatches:any = {};
 		Api.Call("GetPotentialMatches", {}).then((Result) => {
-			if(_.count(Result['PotentialMatches']) > 0) {
+			if(_.size(Result['PotentialMatches']) > 0) {
 				PotentialMatches = Result;
 			}
 		});
