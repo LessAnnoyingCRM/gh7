@@ -11,6 +11,7 @@ import React from 'react';
 import _ from 'underscore';
 
 import { View, Text, FlatList, StyleSheet, Image, TouchableHighlight, Alert } from 'react-native';
+import { Svg, Polygon } from 'react-native-svg';
 import ConversationData from '../../stores/conversations';
 import Users from '../../stores/users';
 
@@ -33,7 +34,20 @@ export default class Conversation extends React.Component {
                         <Text style={{textAlign: 'right', marginRight: 6}}>{"Nicola Pedretti"}</Text>
                         <View style={styles.MessageFromMe}>
                             <TouchableHighlight onPress={() => this.PlayMessage} underlayColor="rgba(255,255,255,0.4)">
-                                <Text style={styles.PlayMessageButton}>   ></Text>
+                                <View style={styles.PlayMessageButton}>
+                                    <Svg
+                                        width="16"
+                                        height="16" 
+                                        viewBox="0 0 24 24" 
+                                        fill="#fff" 
+                                        stroke="#fff" 
+                                        strokeWidth="2" 
+                                        strokeLinecap="round" 
+                                        strokeLinejoin="round"
+                                    >
+                                        <Polygon points="5 3 19 12 5 21 5 3"></Polygon>
+                                    </Svg>
+                                </View>
                             </TouchableHighlight>
                             <View style={{justifyContent:'center'}}><Text style={styles.MessageLength}>{item.MessageLength}</Text></View>
                         </View>
@@ -49,7 +63,20 @@ export default class Conversation extends React.Component {
                         <Text style={{textAlign: 'left', marginLeft: 6}}>{"Michelle Smith"}</Text>
                         <View style={styles.MessageToMe}>
                             <TouchableHighlight onPress={() => this.PlayMessage} underlayColor="rgba(255,255,255,0.4)">
-                                <Text style={styles.PlayMessageButton}>   ></Text>
+                                <View style={styles.PlayMessageButton}>
+                                    <Svg
+                                        width="16"
+                                        height="16"
+                                        viewBox="0 0 24 24"
+                                        fill="#fff"
+                                        stroke="#fff"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <Polygon points="5 3 19 12 5 21 5 3"></Polygon>
+                                    </Svg>
+                                </View>
                             </TouchableHighlight>
                             <View style={{justifyContent:'center'}}><Text style={styles.MessageLength}>{item.MessageLength}</Text></View>
                         </View>
@@ -172,7 +199,9 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
         borderRadius: 30/2,
-
+        alignItems: 'center',
+        padding: 7,
+        paddingLeft: 10,
         justifyContent: 'flex-start',
         color: "#fff",
         lineHeight: 30,
