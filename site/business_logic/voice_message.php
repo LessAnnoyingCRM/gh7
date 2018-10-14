@@ -63,8 +63,8 @@ function GetVoiceMessages ($Parameters) {
 function GetAllConversations ($Parameters, $UserId) {
 
     // Get all the messages that the user is participating in
-	$Sql = "SELECT message.* FROM message,pairing 
-			WHERE message.MatchId=pairing.MatchId
+	$Sql = "SELECT message.* FROM message 
+			  JOIN pairing ON message.MatchId = pairing.MatchId
 			  AND pairing.DateUnmatched IS NULL
 			  AND message.DateArchived IS NULL
 			  AND (pairing.GuestId=$UserId OR pairing.HostId=$UserId)
