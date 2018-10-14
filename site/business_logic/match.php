@@ -8,7 +8,7 @@ function CreateMatch ($Parameters, $UserId) {
 
 function GetPotentialMatches($Parameters, $UserId) {
 
-    $User = GetUser($UserId);
+    $User = _GetUser($UserId);
 
     if ($User['IsHost']) {
         $Sql = "SELECT UserId FROM user WHERE !IsHost";
@@ -22,7 +22,7 @@ function GetPotentialMatches($Parameters, $UserId) {
 }
 
 function GetMatches ($Parameters, $UserId) {
-	$User = GetUser($UserId);
+	$User = _GetUser($UserId);
 
 	if ($User['IsHost']) {
 		$Sql = "SELECT * FROM pairing WHERE HostId = $UserId";

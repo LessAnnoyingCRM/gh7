@@ -16,7 +16,7 @@ try {
 	echo Api_Return(
 		call_user_func_array(
 			$Function,
-			array($Parameters, $UserId, $IsHost)
+			array(json_decode($Parameters,true), $UserId, $IsHost)
 		)
 	);
 } catch (Error $e) {
