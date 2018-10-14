@@ -21,7 +21,7 @@ export default DrawerNavigator({
     Current: { screen: Conversation },
     History: { screen: Inbox },
     Conversation: { screen: Conversation },
-    SideBar: { screen: SideBar }
+    SideBar: { screen: SideBar },
     Record : { screen: RecordMessage },
     Confirmation : { screen: MessageSent }
 }, NavOptions);
