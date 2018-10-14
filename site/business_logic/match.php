@@ -20,7 +20,7 @@ function GetPotentialMatches($Parameters, $UserId, $IsHost) {
         $Sql = "SELECT user.UserId AS OtherUserId, user.Name, user.Picture AS ProfilePictureURL, pairing.MatchId, user.Profile
         		FROM pairing 
         		LEFT JOIN user ON user.UserId = pairing.HostId
-        		WHERE DateHostMatched IS NULL AND DateUnmatched IS NULL AND pairing.GuestId = $UserId";
+        		WHERE DateHostMatched IS NULL AND pairing.DateUnmatched IS NULL";
     }
 
     $Result = Mysqlx_Query($Sql);

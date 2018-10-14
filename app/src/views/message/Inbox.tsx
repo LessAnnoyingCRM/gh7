@@ -1,7 +1,7 @@
 import * as React from 'react';
 import _ from 'underscore';
 import moment from 'moment-timezone';
-import Api from '../../utils/Api';
+import Api from '../../utils/api';
 
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import FakeConversationData from '../../stores/conversations';
