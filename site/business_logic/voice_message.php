@@ -21,8 +21,9 @@ function SendVoiceMessage ($Parameters, $UserId) {
 	Mysqlx_Query($Sql);
     $MessageId = Mysql_GetLastCreatedId("MessageId");
 
+
     // upload the file
-    $S3Filename = $MessageId;
+    $S3Filename = $MessageId['MessageId'];
     $Url = _UploadMp4S3($S3Filename,$LocalFilename,$FileType);
 
     // update the DB with the url
