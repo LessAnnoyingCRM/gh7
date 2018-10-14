@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.horcrux.svg.SvgPackage;
 import com.rnfs.RNFSPackage;
 import com.facebook.react.ReactNativeHost;
@@ -30,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
             new ReactNativePushNotificationPackage(),
             new SvgPackage(),
             new RNFSPackage(),
+          new VectorIconsPackage(),
           new AudioPackage()
       );
     }
