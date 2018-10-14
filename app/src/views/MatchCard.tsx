@@ -25,7 +25,7 @@ export default class MatchCard extends React.Component<Props, State> {
 			return null;
 		}
 		const { navigate } = this.props.navigation;
-		const { CoverPhotoURL, Distance, Name, OnLike, OnDislike, ProfilePictureURL, UserID } = this.props;
+		const { CoverPhotoURL, Distance, Name, OnLike, OnDislike, ProfilePictureURL, OtherUserId } = this.props;
 		return (
 			<View style={{flex: 1}}>
 				<ScrollView contentContainerStyle={Styles.CardContainer}>
@@ -79,10 +79,10 @@ export default class MatchCard extends React.Component<Props, State> {
 					</View>
 				</ScrollView>
 				 <View style={Styles.RatingButtons}>
-					<TouchableHighlight onPress={() => this.props.OnDislike(UserID, navigate)} underlayColor="rgba(255,255,255,0.4)">
+					<TouchableHighlight onPress={() => this.props.OnDislike(OtherUserId, navigate)} underlayColor="rgba(255,255,255,0.4)">
 						<Text style={Styles.ThumbsDownButton}>(n)</Text>
 					</TouchableHighlight>
-					<TouchableHighlight onPress={() => this.props.OnLike(UserID, navigate)} underlayColor="rgba(255,255,255,0.4)">
+					<TouchableHighlight onPress={() => this.props.OnLike(OtherUserId, navigate)} underlayColor="rgba(255,255,255,0.4)">
 						<Text style={Styles.ThumbsUpButton}>(y)</Text>
 					</TouchableHighlight>
 				 </View>
