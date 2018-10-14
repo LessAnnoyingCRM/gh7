@@ -40,7 +40,9 @@ function GuestApproveMatch ($Parameters) {
 			SET DateGuestApproved = '$DateGuestApproved' 
 			WHERE MatchId = $MatchId";
 	
-	return Mysqlx_Query($Sql);
+	Mysqlx_Query($Sql);
+	return(['DateGuestApproved'=>$DateGuestApproved]);
+
 }
 
 function HostConfirmMatch ($Parameters) {
@@ -51,5 +53,7 @@ function HostConfirmMatch ($Parameters) {
 			SET DateHostMatched = '$DateHostMatched'
 			WHERE MatchId = $MatchId";
 
-	return Mysqlx_Query($Sql);
+	Mysqlx_Query($Sql);
+    return(['DateHostMatched'=>$DateHostMatched]);
+
 }

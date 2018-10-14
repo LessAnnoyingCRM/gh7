@@ -15,20 +15,28 @@ https://local.lacathon.com/api_endpoint.php?Function=CreateEvent&Parameters={"Ma
 
 # Confirm an Event
 ConfirmEvent(Parameters=[EventId=>1],UserId=1)
-|-> [ConfirmedDate=>'2018-10-13 05:00:03'];
+|-> [ConfirmedDate=>'2018-10-13 05:00:03']
 https://local.lacathon.com/api_endpoint.php?Function=ConfirmEvent&Parameters={"EventId":1}&UserId=1
 
 # Create a match
 CreateMatch(Parameters=[HostId=>1],UserId=1)
-|-> [MatchId=>1];
+|-> [MatchId=>1]
 https://local.lacathon.com/api_endpoint.php?Function=CreateMatch&Parameters={"HostId":2}&UserId=1
 
 # returns list of candidate matches for a guest to view
 GetPotentialMatches(Parameters=[],$UserId=1)
-|-> [UserId=>2,UserId=>3]; # array of UserIds of potential matches
+|-> [UserId=>2,UserId=>3] # array of UserIds of potential matches
 https://local.lacathon.com/api_endpoint.php?Function=GetPotentialMatches&UserId=1
 
 # returns a list of matches
 GetMatches(Parameters=[],$UserId=1)
-|-> [{MatchObject1},{MatchObject2}]; # array of matches
+|-> [{MatchObject1},{MatchObject2}] # array of matches
 https://local.lacathon.com/api_endpoint.php?Function=GetMatches&UserId=1
+
+GuestApproveMatch(Parameters=[MatchId=>2])
+|-> [DateGuestApproved=>2018-10-04 05:00:00]
+https://local.lacathon.com/api_endpoint.php?Function=GuestApproveMatch&Parameters={"MatchId":2}&UserId=1
+
+HostConfirmMatch(Parameters=[MatchId=>2])
+|-> [DateHostMatched=>2018-10-04 05:00:00]
+https://local.lacathon.com/api_endpoint.php?Function=HostConfirmMatch&Parameters={"MatchId":2}&UserId=1
