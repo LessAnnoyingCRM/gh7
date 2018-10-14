@@ -31,15 +31,19 @@ export default class ConversationSummary extends React.Component<Props> {
         const Message = Messages[0];
 
         return (
-            <TouchableHighlight onPress={this._onPressButton}>
-                <View style={styles.container}>
-                    <Image style={styles.picture} source={{ uri: Users[Message.FromUserId].Picture }} />
-                    <View style={styles.thread}>
-                        <Text style={styles.name}>{Users[Message.FromUserId].Name}</Text>
-                        <Text>{moment.tz(Message.DateSent, 'UTC').calendar()}</Text>
+            <View>
+                <TouchableHighlight onPress={this._onPressButton}>
+                    <View style={styles.container}>
+                        <Image style={styles.picture} source={{ uri: Users[Message.FromUserId].Picture }} />
+                        <View style={styles.thread}>
+                            <Text style={styles.name}>{Users[Message.FromUserId].Name}</Text>
+                            {/* <Text>{"Last message: " + moment.tz(Message.DateSent, 'UTC').calendar()}</Text> */}
+                            <Text>{"Last message: " + Message.DateCleaned + " at " + Message.TimeCleaned}</Text>
+                        </View>
                     </View>
-                </View>
-            </TouchableHighlight>
+                </TouchableHighlight>
+            </View>
+            
          );
     }
 }
@@ -47,19 +51,23 @@ export default class ConversationSummary extends React.Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F5FCFF',
+        backgroundColor: '#fff',
         margin: 15,
         flexDirection: 'row'
     },
     picture: {
-        height: 75,
-        width: 75,
+        height: 65,
+        width: 65,
+        marginLeft: 5,
+        marginRight: 5,
+        borderRadius: 65/2,
     },
     thread: {
         marginLeft: 10,
         marginTop: 15,
     },
     name: {
-        fontSize: 20
+        fontSize: 20,
+        color: '#000',
     }
 });

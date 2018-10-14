@@ -5,7 +5,7 @@ import Api from '../utils/api';
 export interface MatchStore {
 	InitStore: () => void,
 	CheckConnection: () => boolean
-	GetMatches: () => Match[],
+	GetPotentialMatches: () => Match[],
 	HandleResponse: (Type: "Like" | "Dislike", UserID: string) => void
 	HasConnection: boolean,
 	Matches: Match[],
@@ -40,38 +40,15 @@ export default class Matches implements MatchStore {
 		}
 	}
 
-	GetMatches = () => {
-		// TODO: Axios call to API
-		return [
-			{
-				Name: "John Doe",
-				Distance: "14.6",
-				ProfilePictureURL: "http://networthcelebrities.com/wp-content/uploads/2015/11/Bernie-Sanders_6.jpg",
-				CoverPhotoURL: "https://upload.wikimedia.org/wikipedia/commons/4/40/Italian_Risotto.png",
-				UserID: "1234"
-			},
-			{
-				Name: "Jane Doe",
-				Distance: "4.2",
-				ProfilePictureURL: "http://networthcelebrities.com/wp-content/uploads/2015/11/Bernie-Sanders_6.jpg",
-				CoverPhotoURL: "http://www.ishwarcenter.org/images/newsletters/american-flag.png",
-				UserID: "1234"
-			},
-			{
-				Name: "Johnny Test",
-				Distance: "24.5",
-				ProfilePictureURL: "http://networthcelebrities.com/wp-content/uploads/2015/11/Bernie-Sanders_6.jpg",
-				CoverPhotoURL: "http://www.ishwarcenter.org/images/newsletters/american-flag.png",
-				UserID: "1234"
-			},
-			{
-				Name: "John Doe",
-				Distance: "14.6",
-				ProfilePictureURL: "http://networthcelebrities.com/wp-content/uploads/2015/11/Bernie-Sanders_6.jpg",
-				CoverPhotoURL: "http://www.ishwarcenter.org/images/newsletters/american-flag.png",
-				UserID: "1234"
-			},
-		]
+	GetPotentialMatches = () => {
+		let PotentialMatches:any = {};
+		Api.Call("GetPotentialMatches", {}).then((Result) => {
+			if(_.count(Result['PotentialMatches']) > 0) {
+				PotentialMatches = Result;
+			}
+		});
+
+		return PotentialMatches;
 	}
 
 	InitStore = () => {
@@ -79,7 +56,7 @@ export default class Matches implements MatchStore {
 		this.HasConnection = this.CheckConnection();
 		if (!this.HasConnection) {
 			// Grab all matches
-			this.Matches = this.GetMatches();
+			this.Matches = this.GetPotentialMatches();
 		}
 	}
 }

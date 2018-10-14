@@ -1,6 +1,6 @@
 import { inject, observer } from 'mobx-react';
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import MatchCard from './MatchCard';
 import { Match } from '../types/match';
@@ -17,10 +17,10 @@ type State = {};
 @inject('MatchStore')
 @observer
 export default class MatchContainer extends React.Component<Props, State> {
-	// TODO: Figure out how to type the navigation function
+
 	OnMatchLike = (UserID: string, navigate: any) => {
-		// TODO: render voice recording screen for matched UserID
-		navigate("RecordMatchMessage", { UserID: UserID });
+		this.props.MatchStore.HandleResponse("Like", UserID);
+		navigate("Record", { UserID: UserID });
 	}
 
 	OnMatchDislike = (UserID: string, navigate: any) => {
@@ -33,13 +33,18 @@ export default class MatchContainer extends React.Component<Props, State> {
 		if (this.props.MatchStore) {
 			const Matches = this.props.MatchStore.Matches;
 			if (Matches.length < 1) {
-				// TODO: better language here
 				return (
-					<Text>Looks like you're all out of matches! Check back later for more!</Text>
-				)
+					<View style={styles.container}>
+						<Text style={styles.text}>
+							You've gone through all your matches for the day.
+						</Text>
+						<Text style={styles.text}>
+							Check back tomorrow for more!
+						</Text>
+					</View>
+				);
 			}
 			const ActiveMatch = Matches[0];
-			console.log("new match");
 			return (
 				<View style={{ flex:1 }}>
 					<MatchCard {...ActiveMatch} Active={true} OnLike={this.OnMatchLike} OnDislike={this.OnMatchDislike} navigation={this.props.navigation} />
@@ -49,3 +54,22 @@ export default class MatchContainer extends React.Component<Props, State> {
 		return null;
 	}
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		textAlign: 'center',
+		padding: 20
+	},
+	text: {
+		fontFamily: 'Lato',
+		fontSize: 24,
+		lineHeight: 29,
+		color: "#333",
+		textAlign: 'center',
+		marginTop: 20,
+		marginBottom: 20
+	}
+});
