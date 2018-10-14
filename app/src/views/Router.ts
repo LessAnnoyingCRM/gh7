@@ -8,7 +8,7 @@ import Conversation from './message/Conversation';
 import SideBar from './SideBar';
 
 const NavOptions: DrawerNavigatorConfig = {
-    initialRouteName: 'Home',
+    initialRouteName: 'History',
     contentComponent: SideBar
 };
 
