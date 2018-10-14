@@ -54,7 +54,6 @@
 		6E33E7A4CF1444E593072E73 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2F56F6D6F6E4931B443DA81 /* libRNFS.a */; };
 		7C202A45A08B4EFD99D9B37B /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6936FBB079D148A9AD22F75E /* libRNSVG.a */; };
 		30DD13C159D64F328AD2F23B /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4748D6F106B04F59918E6B98 /* libRNSVG-tvOS.a */; };
->>>>>>> 16a6afe224508d177b89aaec48045151a30fc3f8
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -382,7 +381,6 @@
 		BE3EEA5EB10244D18055233A /* RNSVG.xcodeproj */ = {isa = PBXFileReference; name = "RNSVG.xcodeproj"; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		6936FBB079D148A9AD22F75E /* libRNSVG.a */ = {isa = PBXFileReference; name = "libRNSVG.a"; path = "libRNSVG.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		4748D6F106B04F59918E6B98 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; name = "libRNSVG-tvOS.a"; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
->>>>>>> 16a6afe224508d177b89aaec48045151a30fc3f8
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -415,7 +413,6 @@
 				6E33E7A4CF1444E593072E73 /* libRNFS.a in Frameworks */,
 				55D881EB1E7B4F7194C1A1C4 /* libRNVectorIcons.a in Frameworks */,
 				7C202A45A08B4EFD99D9B37B /* libRNSVG.a in Frameworks */,
->>>>>>> 16a6afe224508d177b89aaec48045151a30fc3f8
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,7 +605,6 @@
 				70FB58CF94944753B16216A1 /* RNFS.xcodeproj */,
 				B8E9BC781EB648C1AC554234 /* RNVectorIcons.xcodeproj */,
 				BE3EEA5EB10244D18055233A /* RNSVG.xcodeproj */,
->>>>>>> 16a6afe224508d177b89aaec48045151a30fc3f8
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1278,7 +1274,6 @@
 					"$(SRCROOT)/../node_modules/react-native-audio-toolkit/ios/ReactNativeAudioToolkit/**",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
->>>>>>> 16a6afe224508d177b89aaec48045151a30fc3f8
 				);
 			};
 			name = Debug;
@@ -1311,7 +1306,6 @@
 					"$(SRCROOT)/../node_modules/react-native-audio-toolkit/ios/ReactNativeAudioToolkit/**",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
->>>>>>> 16a6afe224508d177b89aaec48045151a30fc3f8
 				);
 			};
 			name = Release;
@@ -1339,7 +1333,6 @@
 					"$(SRCROOT)/../node_modules/react-native-audio-toolkit/ios/ReactNativeAudioToolkit/**",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
->>>>>>> 16a6afe224508d177b89aaec48045151a30fc3f8
 				);
 			};
 			name = Debug;
@@ -1366,7 +1359,6 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
->>>>>>> 16a6afe224508d177b89aaec48045151a30fc3f8
 				);
 			};
 			name = Release;
@@ -1407,7 +1399,6 @@
 					"$(SRCROOT)/../node_modules/react-native-audio-toolkit/ios/ReactNativeAudioToolkit/**",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
->>>>>>> 16a6afe224508d177b89aaec48045151a30fc3f8
 				);
 			};
 			name = Debug;
@@ -1448,7 +1439,6 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
->>>>>>> 16a6afe224508d177b89aaec48045151a30fc3f8
 				);
 			};
 			name = Release;
@@ -1488,7 +1478,6 @@
 					"$(SRCROOT)/../node_modules/react-native-audio-toolkit/ios/ReactNativeAudioToolkit/**",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
->>>>>>> 16a6afe224508d177b89aaec48045151a30fc3f8
 				);
 			};
 			name = Debug;
@@ -1528,7 +1517,6 @@
 					"$(SRCROOT)/../node_modules/react-native-audio-toolkit/ios/ReactNativeAudioToolkit/**",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
->>>>>>> 16a6afe224508d177b89aaec48045151a30fc3f8
 				);
 			};
 			name = Release;
