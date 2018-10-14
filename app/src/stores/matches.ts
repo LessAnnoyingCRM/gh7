@@ -2,7 +2,7 @@ import { observable } from 'mobx';
 import { Match } from '../types/match';
 import Api from '../utils/api';
 import _ from 'underscore';
-import Alert from 'alert';
+import { Alert } from 'react-native';
 
 export interface MatchStore {
 	InitStore: () => void,
