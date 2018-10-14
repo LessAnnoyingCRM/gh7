@@ -77,10 +77,7 @@ function _UploadMp4S3($S3Filename,$LocalFilename,$ContentType = 'audio/mp4') {
         'Bucket' => 'gh7',
         'ACL' => 'public-read',
         'Key' => $S3Filename,
-        #'ContentDisposition' => ,
-        #'ContentEncoding' => ,
-        #'ContentType' => $ContentType,
-        #'Body' => <string || resource || Psr\Http\Message\StreamInterface>,
+        'ContentType' => $ContentType,
         'SourceFile' => $LocalFilename,
 
     ]);
