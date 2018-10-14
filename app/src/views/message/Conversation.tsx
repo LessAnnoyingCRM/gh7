@@ -10,85 +10,26 @@
 import React from 'react';
 import _ from 'underscore';
 
-import { View, Text, FlatList, StyleSheet, Image, TouchableHighlight, Alert } from 'react-native';
-import { Svg, Polygon } from 'react-native-svg';
+import { View, Text, FlatList, StyleSheet, Image, TouchableHighlight, Alert, Slider } from 'react-native';
+
+import Message from './Message';
 import ConversationData from '../../stores/conversations';
 import Users from '../../stores/users';
 
 export default class Conversation extends React.Component {
-    PlayMessage = () => {
-        
-    }
+
+    count = 6;
    
-    RenderMessage({item}) {
-        const MyUserId = 2;
-
-        if(item.FromUserId == MyUserId){
-            return (
-                <View style={styles.FromMe}>
-                    <View style={{flexDirection: 'column', justifyContent: 'center'}}>
-                        <Text style={{fontSize: 10}}>{item.DateCleaned}</Text>
-                        <Text style={{fontSize: 10}}>{item.TimeCleaned}</Text>
-                    </View>
-                    <View style={{flexDirection: 'column'}}>
-                        <Text style={{textAlign: 'right', marginRight: 6}}>{"Nicola Pedretti"}</Text>
-                        <View style={styles.MessageFromMe}>
-                            <TouchableHighlight onPress={() => this.PlayMessage} underlayColor="rgba(255,255,255,0.4)">
-                                <View style={styles.PlayMessageButton}>
-                                    <Svg
-                                        width="16"
-                                        height="16" 
-                                        viewBox="0 0 24 24" 
-                                        fill="#fff" 
-                                        stroke="#fff" 
-                                        strokeWidth="2" 
-                                        strokeLinecap="round" 
-                                        strokeLinejoin="round"
-                                    >
-                                        <Polygon points="5 3 19 12 5 21 5 3"></Polygon>
-                                    </Svg>
-                                </View>
-                            </TouchableHighlight>
-                            <View style={{justifyContent:'center'}}><Text style={styles.MessageLength}>{item.MessageLength}</Text></View>
-                        </View>
-                    </View>
-                    <Image style={styles.picture} source={ require('../../nic.jpg') } />
-                </View>
-            );
-        } else {
-            return (
-                <View style={styles.ToMe}>
-                    <Image style={styles.picture} source={ require('../../woman.jpg') } />
-                    <View style={{flexDirection: 'column'}}>
-                        <Text style={{textAlign: 'left', marginLeft: 6}}>{"Michelle Smith"}</Text>
-                        <View style={styles.MessageToMe}>
-                            <TouchableHighlight onPress={() => this.PlayMessage} underlayColor="rgba(255,255,255,0.4)">
-                                <View style={styles.PlayMessageButton}>
-                                    <Svg
-                                        width="16"
-                                        height="16"
-                                        viewBox="0 0 24 24"
-                                        fill="#fff"
-                                        stroke="#fff"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <Polygon points="5 3 19 12 5 21 5 3"></Polygon>
-                                    </Svg>
-                                </View>
-                            </TouchableHighlight>
-                            <View style={{justifyContent:'center'}}><Text style={styles.MessageLength}>{item.MessageLength}</Text></View>
-                        </View>
-                    </View>    
-                    <View style={{flexDirection: 'column', justifyContent: 'center'}}>
-                        <Text style={{fontSize: 10}}>{item.DateCleaned}</Text>
-                        <Text style={{fontSize: 10}}>{item.TimeCleaned}</Text>
-                    </View>
-                </View>
-            );
+    RenderMessage= ({item}) => {
+        let Count = Math.floor(Math.random()*this.count) + 1;
+        if(Count = 3){
+            Count++;
         }
+        const PlayPath = 'https://s3.amazonaws.com/gh7/'+Count+'.mp4'; //item.URL
 
+        return (
+            <Message item={item} RecordingUrl={PlayPath} key={item.MessageId} />
+        );
     }
 
     render() {
@@ -140,79 +81,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         flex: 1,
     },
-    picture: {
-        height: 65,
-        width: 65,
-        marginLeft: 5,
-        marginRight: 5,
-        borderRadius: 65/2,
-    },
-    thread: {
-        marginLeft: 10,
-        marginTop: 15,
-    },
-    name: {
-        fontSize: 20
-    },
-    FromMe: {
-        flex: 1,
-        backgroundColor: '#FFF',
-        margin: 10,
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        maxWidth: '95%',      
-    },
-    ToMe: {
-        flex: 1,
-        backgroundColor: '#FFF',
-        margin: 10,
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        maxWidth: '95%',
-    },
-    MessageFromMe: {
-        backgroundColor: '#E7EFF5',
-        width: 250,
-        height: 45,
-        borderRadius: 9,
-        color: '#000',
-        lineHeight: 28,
-        padding: 6,
-        margin: 6,
-        flexDirection: "row",
-		justifyContent: "space-between",
-    },
-    MessageToMe: {
-        backgroundColor: '#F3F3F3',
-        width: 250,
-        height: 45,
-        borderRadius: 9,
-        color: '#000',
-        lineHeight: 28,
-        padding: 6,
-        margin: 6,
-        flexDirection: "row",
-		justifyContent: "space-between",
-    },
-    PlayMessageButton: {
-        backgroundColor: '#83C0EC',
-        width: 30,
-        height: 30,
-        borderRadius: 30/2,
-        alignItems: 'center',
-        padding: 7,
-        paddingLeft: 10,
-        justifyContent: 'flex-start',
-        color: "#fff",
-        lineHeight: 30,
-        marginLeft: 5,
-        marginRight: 5,
-    },
-    MessageLength: {
-        justifyContent: 'flex-end',
-        fontSize: 11,
-        lineHeight: 14,
-    },
     ConvoFooter: {
         width: '100%',
         alignItems: 'center',
@@ -259,5 +127,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         margin: 6,
-    }
+    },
 });
