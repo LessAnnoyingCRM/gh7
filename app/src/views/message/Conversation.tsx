@@ -1,72 +1,48 @@
 /**
  * TODO:
- * Start at the bottom of the list
- * Include user input -- button or something to record audio
- * Render audio so they can listen
- * Figure out how to stream it to the phone
  * Maybe also support passing in the conversation id instead of just loading the hardcoded one
  * Also dynamically figure out user's id... lol
  */
 import React from 'react';
 import _ from 'underscore';
+import { inject, observer } from 'mobx-react';
 
-import { View, Text, FlatList, StyleSheet, Image, TouchableHighlight, Alert } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Image, TouchableHighlight, Alert, Slider } from 'react-native';
+import { Svg, Path, Polyline, Circle, Line } from 'react-native-svg';
+import Message from './Message';
 import ConversationData from '../../stores/conversations';
-// import Users from '../../stores/users';
+import Users from '../../stores/users';
+import { MatchStore } from '../../stores/matches'
 
-export default class Conversation extends React.Component {
-    PlayMessage = () => {
-        
-    }
+type Props = {
+    MatchStore: MatchStore
+};
+@inject('MatchStore')
+@observer
+export default class Conversation extends React.Component<Props> {
+    count = 6;
    
-    RenderMessage({item}) {
-        const MyUserId = 2;
-
-        if(item.FromUserId == MyUserId){
-            return (
-                <View style={styles.FromMe}>
-                    <View style={{flexDirection: 'column', justifyContent: 'center'}}>
-                        <Text style={{fontSize: 10}}>{item.DateCleaned}</Text>
-                        <Text style={{fontSize: 10}}>{item.TimeCleaned}</Text>
-                    </View>
-                    <View style={{flexDirection: 'column'}}>
-                        <Text style={{textAlign: 'right', marginRight: 6}}>{"Nicola Pedretti"}</Text>
-                        <View style={styles.MessageFromMe}>
-                            <TouchableHighlight onPress={() => this.PlayMessage} underlayColor="rgba(255,255,255,0.4)">
-                                <Text style={styles.PlayMessageButton}>   ></Text>
-                            </TouchableHighlight>
-                            <View style={{justifyContent:'center'}}><Text style={styles.MessageLength}>{item.MessageLength}</Text></View>
-                        </View>
-                    </View>
-                    <Image style={styles.picture} source={ require('../../nic.jpg') } />
-                </View>
-            );
-        } else {
-            return (
-                <View style={styles.ToMe}>
-                    <Image style={styles.picture} source={ require('../../woman.jpg') } />
-                    <View style={{flexDirection: 'column'}}>
-                        <Text style={{textAlign: 'left', marginLeft: 6}}>{"Michelle Smith"}</Text>
-                        <View style={styles.MessageToMe}>
-                            <TouchableHighlight onPress={() => this.PlayMessage} underlayColor="rgba(255,255,255,0.4)">
-                                <Text style={styles.PlayMessageButton}>   ></Text>
-                            </TouchableHighlight>
-                            <View style={{justifyContent:'center'}}><Text style={styles.MessageLength}>{item.MessageLength}</Text></View>
-                        </View>
-                    </View>    
-                    <View style={{flexDirection: 'column', justifyContent: 'center'}}>
-                        <Text style={{fontSize: 10}}>{item.DateCleaned}</Text>
-                        <Text style={{fontSize: 10}}>{item.TimeCleaned}</Text>
-                    </View>
-                </View>
-            );
+    RenderMessage = ({item}) => {
+        let Count = Math.floor(Math.random()*this.count) + 1;
+        if(Count == 3){
+            Count++;
         }
+        const PlayPath = 'https://s3.amazonaws.com/gh7/'+Count+'.mp4'; //item.URL
+        console.log("here's an item", item)
+        return (
+            <Message item={item} RecordingUrl={PlayPath} key={item.MessageId} />
+        );
+    }
 
+    UnMatch = () => {
+        this.props.MatchStore.HandleResponse("Like", 2);
+        this.props.navigation.navigate("Matches");
     }
 
     render() {
         const ConversationId = 1234;
         const GroupedConversations = _.chain(ConversationData).filter((Message) => { return Message.ConversationId == ConversationId }).sortBy('DateSent').value();
+        const navigate = this.props.navigation.navigate;
 
         return (
             <View style={styles.container}>
@@ -77,7 +53,7 @@ export default class Conversation extends React.Component {
                 />
                 <View style={styles.ConvoFooter}>
                     <View style={styles.RecordMessageButton}>
-                        <TouchableHighlight>
+                        <TouchableHighlight onPress={() => navigate('Record')}>
                             <View style={{flexDirection:'row'}}>
                                 <Text style={styles.MicIcon}></Text>
                                 <View style={{justifyContent:'center'}}><Text style={{fontSize:13, fontWeight:'bold', letterSpacing: 2.5}}>{"RECORD MESSAGE"}</Text></View>
@@ -86,9 +62,25 @@ export default class Conversation extends React.Component {
                     </View>
                     <View style={styles.ConvoFooterButtons}>
                         <View style={styles.UnmatchButton}>
-                            <TouchableHighlight>
+                            <TouchableHighlight onPress={() => this.UnMatch()}>
                                 <View style={{alignItems:'center'}}>
-                                    <Text>-</Text> 
+                                    <View>
+                                        <Svg 
+                                            width="16" 
+                                            height="16" 
+                                            viewBox="0 0 24 24" 
+                                            fill="none" 
+                                            stroke="#333" 
+                                            strokeWidth="2" 
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            style={styles.icon}
+                                        >
+                                            <Path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></Path>
+                                            <Circle cx="8.5" cy="7" r="4"></Circle>
+                                            <Line x1="23" y1="11" x2="17" y2="11"></Line>
+                                        </Svg>
+                                    </View> 
                                     <Text style={{fontSize:10, letterSpacing:1}}>{"UNMATCH"}</Text>
                                 </View>
                             </TouchableHighlight>
@@ -96,7 +88,22 @@ export default class Conversation extends React.Component {
                         <View style={styles.ConfirmMetButton}>
                             <TouchableHighlight>
                                 <View style={{alignItems:'center'}}>
-                                    <Text>O</Text>
+                                    <View>
+                                        <Svg
+                                            height='16'
+                                            width='16'
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="black"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            style={styles.icon}
+                                        >
+                                            <Path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></Path>
+                                            <Polyline points="22 4 12 14.01 9 11.01"></Polyline>
+                                        </Svg>
+                                    </View>
                                     <Text style={{fontSize:10, letterSpacing:1}}>{"TAP HERE AFTER YOU’VE MET"}</Text>
                                 </View>
                             </TouchableHighlight>
@@ -112,77 +119,6 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#FFFFFF',
         flex: 1,
-    },
-    picture: {
-        height: 65,
-        width: 65,
-        marginLeft: 5,
-        marginRight: 5,
-        borderRadius: 65/2,
-    },
-    thread: {
-        marginLeft: 10,
-        marginTop: 15,
-    },
-    name: {
-        fontSize: 20
-    },
-    FromMe: {
-        flex: 1,
-        backgroundColor: '#FFF',
-        margin: 10,
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        maxWidth: '95%',      
-    },
-    ToMe: {
-        flex: 1,
-        backgroundColor: '#FFF',
-        margin: 10,
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        maxWidth: '95%',
-    },
-    MessageFromMe: {
-        backgroundColor: '#E7EFF5',
-        width: 250,
-        height: 45,
-        borderRadius: 9,
-        color: '#000',
-        lineHeight: 28,
-        padding: 6,
-        margin: 6,
-        flexDirection: "row",
-		justifyContent: "space-between",
-    },
-    MessageToMe: {
-        backgroundColor: '#F3F3F3',
-        width: 250,
-        height: 45,
-        borderRadius: 9,
-        color: '#000',
-        lineHeight: 28,
-        padding: 6,
-        margin: 6,
-        flexDirection: "row",
-		justifyContent: "space-between",
-    },
-    PlayMessageButton: {
-        backgroundColor: '#83C0EC',
-        width: 30,
-        height: 30,
-        borderRadius: 30/2,
-
-        justifyContent: 'flex-start',
-        color: "#fff",
-        lineHeight: 30,
-        marginLeft: 5,
-        marginRight: 5,
-    },
-    MessageLength: {
-        justifyContent: 'flex-end',
-        fontSize: 11,
-        lineHeight: 14,
     },
     ConvoFooter: {
         width: '100%',
@@ -217,7 +153,6 @@ const styles = StyleSheet.create({
         width: 217,
         height: 38,
         margin: 16,
-        // flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -230,5 +165,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         margin: 6,
+    },
+    icon: {
+        marginBottom: 7
     }
 });
