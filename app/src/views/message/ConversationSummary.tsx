@@ -5,10 +5,10 @@
 import React from 'react';
 import moment from 'moment-timezone';
 import _ from 'underscore';
+import Users from '../../stores/users'
 
 import { View, Text, StyleSheet, TouchableHighlight, Image } from 'react-native';
 import { Message } from '../../types/Message';
-import Users from '../../stores/users';
 
 type Props = {
     Messages: Message[],
@@ -18,7 +18,7 @@ type Props = {
 
 export default class ConversationSummary extends React.Component<Props> {
     _onPressButton = () => {
-        this.props.navigation.navigate('Conversation', { MatchId: this.props.MatchId });
+        this.props.navigation.navigate('Conversation', { MatchId: this.props.MatchId, Messages: this.props.Messages});
     }
 
     render(){
@@ -29,7 +29,7 @@ export default class ConversationSummary extends React.Component<Props> {
         }
 
         const Message = Messages[0];
-
+				
         return (
             <View>
                 <TouchableHighlight onPress={this._onPressButton}>
@@ -37,7 +37,6 @@ export default class ConversationSummary extends React.Component<Props> {
                         <Image style={styles.picture} source={{ uri: Users[Message.FromUserId].Picture }} />
                         <View style={styles.thread}>
                             <Text style={styles.name}>{Users[Message.FromUserId].Name}</Text>
-                            {/* <Text>{"Last message: " + moment.tz(Message.DateSent, 'UTC').calendar()}</Text> */}
                             <Text>{"Last message: " + Message.DateSent}</Text>
                         </View>
                     </View>

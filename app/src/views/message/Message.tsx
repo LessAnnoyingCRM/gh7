@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, TouchableHighlight, Slider, Image, StyleSheet } from 'react-native';
 import { Player } from 'react-native-audio-toolkit';
 import { Svg, Polygon, Rect } from 'react-native-svg';
+import moment from 'moment';
+import Users from '../../stores/users';
 
 export default class Message extends React.Component {
     constructor(props: any) {
@@ -22,8 +24,8 @@ export default class Message extends React.Component {
     componentWillMount() {
         this.player = null;
         this.lastSeek = 0;
-
-        this._reloadPlayer('https://s3.amazonaws.com/gh7/6.mp4');
+				let Message = this.props.item;
+        this._reloadPlayer(Message.MessageUrl);
 
         this._progressInterval = setInterval(() => {
             if (this.player && this._shouldUpdateProgressBar()) {
@@ -161,13 +163,13 @@ export default class Message extends React.Component {
             return (
                 <View style={styles.FromMe}>
                     <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 10 }}>{item.DateCleaned}</Text>
-                        <Text style={{ fontSize: 10 }}>{item.TimeCleaned}</Text>
+                        <Text style={{ fontSize: 10 }}>{moment(item.DateSent).format("MMM Do")}</Text>
+                        <Text style={{ fontSize: 10 }}>{moment(item.DateSent).format("hh:mm")}</Text>
                     </View>
                     <View style={{ flexDirection: 'column' }}>
-                        <Text style={{ textAlign: 'right', marginRight: 6 }}>{"Nicola Pedretti"}</Text>
+                        <Text style={{ textAlign: 'right', marginRight: 6 }}>{Users[item.FromUserId].Name}</Text>
                         <View style={styles.MessageFromMe}>
-                            <TouchableHighlight onPress={() => this._playPause(this.props.RecordingUrl)} underlayColor="rgba(255,255,255,0.4)">
+                            <TouchableHighlight onPress={() => this._playPause(item.MessageUrl)} underlayColor="rgba(255,255,255,0.4)">
                                 {this.RenderPlayButton()}
                             </TouchableHighlight>
                             <View style={styles.slider}>
@@ -176,17 +178,17 @@ export default class Message extends React.Component {
                             <View style={{ justifyContent: 'center' }}><Text style={styles.MessageLength}>{item.MessageLength}</Text></View>
                         </View>
                     </View>
-                    <Image style={styles.picture} source={require('../../nic.jpg')} />
+                    <Image style={styles.picture} source={{ uri: Users[item.FromUserId].Picture}} />
                 </View>
             );
         } else {
             return (
                 <View style={styles.ToMe}>
-                    <Image style={styles.picture} source={require('../../woman.jpg')} />
+                    <Image style={styles.picture} source={{ uri: Users[item.FromUserId].Picture}} />
                     <View style={{ flexDirection: 'column' }}>
-                        <Text style={{ textAlign: 'left', marginLeft: 6 }}>{"Michelle Smith"}</Text>
+                        <Text style={{ textAlign: 'left', marginLeft: 6 }}>{Users[item.FromUserId].Name}</Text>
                         <View style={styles.MessageToMe}>
-                            <TouchableHighlight onPress={() => this._playPause(this.props.RecordingUrl)} underlayColor="rgba(255,255,255,0.4)">
+                            <TouchableHighlight onPress={() => this._playPause(item.MessageUrl)} underlayColor="rgba(255,255,255,0.4)">
                                 {this.RenderPlayButton()}
                             </TouchableHighlight>
                             <View style={styles.slider}>
@@ -196,8 +198,8 @@ export default class Message extends React.Component {
                         </View>
                     </View>
                     <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 10 }}>{item.DateCleaned}</Text>
-                        <Text style={{ fontSize: 10 }}>{item.TimeCleaned}</Text>
+                        <Text style={{ fontSize: 10 }}>{moment(item.DateSent).format("MMM Do")}</Text>
+                        <Text style={{ fontSize: 10 }}>{moment(item.DateSent).format("hh:mm")}</Text>
                     </View>
                 </View>
             );

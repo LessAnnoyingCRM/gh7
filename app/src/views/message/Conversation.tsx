@@ -43,7 +43,7 @@ export default class Conversation extends React.Component<Props, State> {
         return (
             <View style={styles.container}>
                 <FlatList
-                    data={GroupedConversations}
+                    data={this.props.navigation.getParam("Messages", [])}
                     renderItem={this.RenderMessage}
                     keyExtractor={(item) => item.MessageId.toString()}
                 />

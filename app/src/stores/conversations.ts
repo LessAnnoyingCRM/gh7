@@ -19,7 +19,6 @@ export default class Conversations implements ConversationStore {
 	
 	GetConversations = () => {
 		Api.Call("GetAllConversations", {}).then((Result) => {
-			Alert.alert(JSON.stringify(Result));
 			if(_.size(Result) > 0) {
 				this.Conversations = Result;
 			} else {

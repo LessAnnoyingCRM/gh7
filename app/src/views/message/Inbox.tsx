@@ -37,9 +37,9 @@ export default class Inbox extends React.Component<Props, State> {
                             <View style={styles.PastChat}>
                                 <ConversationSummary
                                     key={MatchId}
-                                    Messages={Conversation[MatchId]['Conversation']} 
+                                    Messages={Conversation['Conversation']} 
                                     MatchId={MatchId} 
-                                    navigation={navigation}
+                                    navigation={this.props.navigation}
                                 />
                             </View>
                            
