@@ -49,7 +49,7 @@ export default class Conversation extends React.Component<Props, State> {
     }
 
     render() {
-        //let MatchId = this.props.navigation.getParam("MatchId", this.props.MatchStore.PrimaryMatch.MatchId);
+        let MatchId = this.props.navigation.getParam("MatchId", this.props.MatchStore.PrimaryMatch.MatchId);
         const Messages = this.GetMessages();
         return (
             <View style={styles.container}>
@@ -60,7 +60,7 @@ export default class Conversation extends React.Component<Props, State> {
                 />
                 <View style={styles.ConvoFooter}>
                     <View style={styles.RecordMessageButton}>
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Record')}>
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Record', {MatchId: MatchId})}>
                             <View style={{flexDirection:'row'}}>
                                 <Text style={styles.MicIcon}></Text>
                                 <View style={{justifyContent:'center'}}><Text style={{fontSize:13, fontWeight:'bold', letterSpacing: 2.5}}>{"RECORD MESSAGE"}</Text></View>

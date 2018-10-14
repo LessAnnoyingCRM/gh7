@@ -11,13 +11,13 @@ export default class Api {
 
 		let UserId = 1;
 		let ApiCallParameters:Response = Parameters;
-		ApiCallParameters['Function'] = FunctionName;
-		ApiCallParameters['UserId'] = UserId;
+		// ApiCallParameters['Function'] = FunctionName;
+		// ApiCallParameters['UserId'] = UserId;
 
 		return new Promise ((resolve:any, reject:any) => {
 			axios.get(
-				'https://api.lacathon.com/api_endpoint.php', 
-				{params:ApiCallParameters}
+				'https://api.lacathon.com/api_endpoint.php?', 
+				{params:{Parameters: JSON.stringify(ApiCallParameters), Function: FunctionName, UserId: UserId}}
 			).then((response:any) => {
 				let ReturnArray = response.data;
 				if(ReturnArray['Error']) {

@@ -19,11 +19,24 @@ export default class Conversations implements ConversationStore {
 	
 	GetConversations = () => {
 		Api.Call("GetAllConversations", {}).then((Result) => {
+			console.log("Result", Result);
 			if(_.size(Result) > 0) {
 				this.Conversations = Result;
 			} else {
 				this.Conversations = [];
 			}
+		});
+	}
+
+	saveMessage(MatchId, MessageUrl, DateSent){
+		console.log("asdasdf", MatchId, MessageUrl, DateSent);
+		console.log(this.Conversations);
+		this.Conversations[MatchId]['Conversation'].push({
+			MatchId: MatchId,
+			Message: MessageUrl,
+			DateSent: DateSent,
+			MessageId: Math.random()*23480298342349809184234829084,
+			FromUserId: 2
 		});
 	}
 	

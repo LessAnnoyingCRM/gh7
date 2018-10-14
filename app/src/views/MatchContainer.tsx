@@ -19,7 +19,6 @@ type State = {};
 export default class MatchContainer extends React.Component<Props, State> {
 
 	componentWillMount(){
-		console.log(this.props.MatchStore.PrimaryMatch);
 		if(this.props.MatchStore.PrimaryMatch){
 			this.props.navigation.navigate('Conversation', { MatchId: this.props.MatchStore.PrimaryMatch.MatchId });
 		}
