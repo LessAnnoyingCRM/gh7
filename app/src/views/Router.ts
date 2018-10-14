@@ -4,6 +4,8 @@ import HomeComponent from './HomeComponent';
 import MatchContainer from './MatchContainer';
 import Inbox from './message/Inbox';
 import Conversation from './message/Conversation';
+import SideBar from './SideBar';
+import LanguagePicker from './LanguagePicker';
 //import SideBar from './SideBar';
 import RecordMessage from './message/RecordMessage';
 import MessageSent from './message/MessageSent';
@@ -19,7 +21,8 @@ export default DrawerNavigator({
     Current: { screen: Conversation },
     History: { screen: Inbox },
     Conversation: { screen: Conversation },
-    //SideBar: { screen: SideBar },
+    // SideBar: { screen: SideBar },
+    LanguagePicker: { screen: LanguagePicker },
     Record : { screen: RecordMessage },
     Confirmation : { screen: MessageSent }
 }, NavOptions);
