@@ -1,6 +1,5 @@
 export type Message = {
-    MatchId: number,
-    MessageId: number,
-    FromUserId: number,
-    DateSent: string
+	Message: string,
+	DateSent: string,
+	UserId: string,
 };

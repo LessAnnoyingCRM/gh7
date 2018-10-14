@@ -5,39 +5,18 @@
  */
 import React from 'react';
 import _ from 'underscore';
-import Api from '../../utils/api';
-import { inject, observer } from 'mobx-react';
 
 import { View, Text, FlatList, StyleSheet, Image, TouchableHighlight, Alert, Slider } from 'react-native';
 import { Svg, Path, Polyline, Circle, Line } from 'react-native-svg';
 import Message from './Message';
-import ConversationData from '../../stores/conversations';
 import Users from '../../stores/users';
 import { MatchStore } from '../../stores/matches'
 
 interface State {ConversationData:any, MatchId:string};
-type Props = {
-    MatchStore: MatchStore
-};
-@inject('MatchStore')
-@observer
+type Props = {};
 
 export default class Conversation extends React.Component<Props, State> {
-	
-    componentWillMount() {
-        Api.Call("GetCurrentMatch", {}).then((Result) => {
-            this.setState({MatchId:Result['MatchId']});
-            Api.Call("GetVoiceMessages", {MatchId:Result['MatchId']}).then((Result) => {
-                this.setState({ConversationData:Result['Conversation']});
-            });
-        });
-    }
 
-    PlayMessage = () => {
-        
-    }
-
-    count = 6;
     RenderMessage = ({item}) => {
         let Count = Math.floor(Math.random()*this.count) + 1;
         if(Count == 3){
@@ -55,9 +34,7 @@ export default class Conversation extends React.Component<Props, State> {
     }
 
     render() {
-        let MatchId = 2;
-        //    const GroupedConversations = _.chain(this.state.ConversationData).filter((Message) => { return Message.MatchId == MatchId }).sortBy('DateSent').value();
-        const GroupsConversations = this.state.ConversationData;
+        let MatchId = this.props.navigation.getParam("MatchId", 2);
 
         return (
             <View style={styles.container}>

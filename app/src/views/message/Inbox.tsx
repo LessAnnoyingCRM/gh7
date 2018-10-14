@@ -1,28 +1,21 @@
 import * as React from 'react';
 import _ from 'underscore';
 import moment from 'moment-timezone';
-import Api from '../../utils/api';
-
+import { inject, observer } from 'mobx-react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import FakeConversationData from '../../stores/conversations';
 import ConversationSummary from './ConversationSummary';
-
-import { Message } from '../../types/Message';
 
 type Props = {
     navigation: any
 };
 interface State {Conversations:any};
+
+@inject("ConversationStore")
 export default class Inbox extends React.Component<Props, State> {
 
-    componentWillMount() {
-        Api.Call("GetAllConversations", {}).then((Result) => {
-            this.setState({Conversations:Result});
-        });
-    }
-
     render() {
-        if(_.size(this.state.Conversations) == 0){
+        if(_.size(this.props.ConversationStore.Conversations) == 0){
             return (
                 <View style={styles.container}>
                     <Text style={styles.welcome}>You have no conversations!</Text>
@@ -30,14 +23,7 @@ export default class Inbox extends React.Component<Props, State> {
             );
         }
 
-        let MostRecentConversations: any = {};
-
-        _.each(this.state.Conversations, (Messages, MatchId: number) => {
-            MostRecentConversations[MatchId] = _.max(Messages, (Message) => { return moment(Message.DateSent).unix() });
-        });
-
-        const SortedData = _.sortBy(MostRecentConversations, (Message: Message) => { return Message.DateSent; }).reverse();
-        const {navigation} = this.props;
+				console.log(this.props.ConversationStore.Conversations);
 
         return (
             <View style={styles.container}>
@@ -46,13 +32,13 @@ export default class Inbox extends React.Component<Props, State> {
 
                 </View>
                 <ScrollView>
-                    {_.map(SortedData, (Message: Message) => {
+                    {_.map(this.props.ConversationStore.Conversations, (Conversation, MatchId) => {
                         return (
                             <View style={styles.PastChat}>
                                 <ConversationSummary
-                                    key={Message.MatchId}
-                                    Messages={this.state.Conversations[Message.MatchId]['Conversation']} 
-                                    MatchId={Message.MatchId} 
+                                    key={MatchId}
+                                    Messages={Conversation[MatchId]['Conversation']} 
+                                    MatchId={MatchId} 
                                     navigation={navigation}
                                 />
                             </View>
