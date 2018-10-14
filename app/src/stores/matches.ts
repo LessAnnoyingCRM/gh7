@@ -44,7 +44,7 @@ export default class Matches implements MatchStore {
 	GetPotentialMatches = () => {
 		let PotentialMatches:any = {};
 		Api.Call("GetPotentialMatches", {}).then((Result) => {
-			if(_.count(Result['PotentialMatches']) > 0) {
+			if(_.size(Result['PotentialMatches']) > 0) {
 				PotentialMatches = Result;
 			}
 		});
