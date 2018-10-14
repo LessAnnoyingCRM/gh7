@@ -7,10 +7,9 @@ type Props = {}
 export default class App extends React.Component<Props> {
 	render() {
 		return (
-			<Provider {...Stores}>
-				<Router />
-			</Provider>
-			
+				<Provider {...Stores}>
+					<Router />
+				</Provider>
 		);
 	}
 }

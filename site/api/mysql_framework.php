@@ -14,6 +14,12 @@ function Mysql_GetAssocArray ($MysqlResult, $IndexName = false) {
 	return $DataArray;
 }
 
+function Mysql_GetAssoc ($MysqlResult, $IndexName = false) {
+    $DataArray = array();
+    $Row = mysqli_fetch_assoc($MysqlResult);
+    return $Row;
+}
+
 function Mysql_GetLastCreatedId ($IndexId) {
 	global $Conn;
 	try {
