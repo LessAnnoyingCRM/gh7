@@ -177,6 +177,7 @@ export default class RecordMessage extends React.Component<Props> {
     }
 
     SubmitFile = () => {
+        console.log("SUBMIT THAT FILE");
         const files = [
             {
                 name: this.previousFile,
@@ -194,14 +195,16 @@ export default class RecordMessage extends React.Component<Props> {
                 'Accept': 'application/json'
             },
         }).promise.then((response) => {
-            if(response.statusCode == 200){
-                this.props.navigation.navigate('Confirmation');
-            } else {
-                Alert.alert("There was an error on the server! Please try again");
-            }
+            // if(response.statusCode == 200){
+             this.props.navigation.navigate('Confirmation');
+            // } else {
+            //     Alert.alert("There was an error on the server! Please try again");
+            // }
         }).catch((err) => {
             Alert.alert("There was an error! Please try again.");
         });
+
+        this.props.navigation.navigate('Confirmation');
     }
 
     render() {

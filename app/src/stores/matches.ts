@@ -11,11 +11,13 @@ export interface MatchStore {
 	HandleResponse: (Type: "Like" | "Dislike", UserID: string) => void
 	HasConnection: boolean,
 	Matches: Match[],
+	PrimaryMatch: any
 }
 
 export default class Matches implements MatchStore {
 	@observable HasConnection = false;
 	@observable Matches: Match[] = [];
+	@observable PrimaryMatch: any = false;
 
 	constructor () {
 		this.InitStore();
@@ -34,12 +36,12 @@ export default class Matches implements MatchStore {
 	}
 	
 	HandleResponse = (Type: "Like" | "Dislike", OtherUserId: string) => {
-		Api.Call("HandleResponse", {OtherUserId:OtherUserId, Type:Type}).then((Result) => {
+		Api.Call("HandleResponse", {OtherUserId: OtherUserId, Type: Type}).then((Result) => {
 			if(Result['NewMatch']){
 				Alert.alert("Match with UserId "+Result['NewMatch']);
 				// ? move into messaging?
 			} else {
-				this.Matches.shift();	
+				this.PrimaryMatch = this.Matches.shift();	
 			}
 		});
 	}

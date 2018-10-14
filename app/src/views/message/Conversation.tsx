@@ -5,6 +5,7 @@
  */
 import React from 'react';
 import _ from 'underscore';
+import { inject, observer } from 'mobx-react';
 
 import { View, Text, FlatList, StyleSheet, Image, TouchableHighlight, Alert, Slider } from 'react-native';
 import { Svg, Path, Polyline, Circle, Line } from 'react-native-svg';
@@ -15,22 +16,32 @@ import { MatchStore } from '../../stores/matches'
 interface State {ConversationData:any, MatchId:string};
 type Props = {};
 
+@inject('MatchStore')
+@inject('ConversationStore')
 export default class Conversation extends React.Component<Props, State> {
 
     RenderMessage = ({item}) => {
-        let Count = Math.floor(Math.random()*this.count) + 1;
-        if(Count == 3){
-            Count++;
-        }
-        const PlayPath = 'https://s3.amazonaws.com/gh7/'+Count+'.mp4'; //item.URL
+        const PlayPath = item.Message; //item.URL
         return (
             <Message item={item} RecordingUrl={PlayPath} key={item.MessageId} />
         );
     }
 
     UnMatch = () => {
-        this.props.MatchStore.HandleResponse("Like", 2);
+        this.props.MatchStore.HandleResponse("Dislike", 2);
         this.props.navigation.navigate("Matches");
+    }
+
+    GetMessages() {
+        if(this.props.navigation.getParam("MatchId")){
+            return this.props.navigation.getParam("Messages", this.props.ConversationStore.Conversations[this.props.navigation.getParam("MatchId")]['Conversation']);
+        } else if (this.props.MatchStore.PrimaryMatch){
+            console.log(this.props.MatchStore.PrimaryMatch);
+            //return this.props.MatchStore.PrimaryMatch;
+        } else {
+            return [];
+        }
+        
     }
 
     RateUser() {
@@ -38,18 +49,18 @@ export default class Conversation extends React.Component<Props, State> {
     }
 
     render() {
-        let MatchId = this.props.navigation.getParam("MatchId", 2);
-
+        //let MatchId = this.props.navigation.getParam("MatchId", this.props.MatchStore.PrimaryMatch.MatchId);
+        const Messages = this.GetMessages();
         return (
             <View style={styles.container}>
                 <FlatList
-                    data={this.props.navigation.getParam("Messages", [])}
+                    data={Messages}
                     renderItem={this.RenderMessage}
                     keyExtractor={(item) => item.MessageId.toString()}
                 />
                 <View style={styles.ConvoFooter}>
                     <View style={styles.RecordMessageButton}>
-                        <TouchableHighlight onPress={() => navigate('Record')}>
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Record')}>
                             <View style={{flexDirection:'row'}}>
                                 <Text style={styles.MicIcon}></Text>
                                 <View style={{justifyContent:'center'}}><Text style={{fontSize:13, fontWeight:'bold', letterSpacing: 2.5}}>{"RECORD MESSAGE"}</Text></View>

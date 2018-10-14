@@ -24,8 +24,7 @@ export default class Message extends React.Component {
     componentWillMount() {
         this.player = null;
         this.lastSeek = 0;
-				let Message = this.props.item;
-        this._reloadPlayer(Message.MessageUrl);
+        this._reloadPlayer(this.props.item.Message);
 
         this._progressInterval = setInterval(() => {
             if (this.player && this._shouldUpdateProgressBar()) {
@@ -169,7 +168,7 @@ export default class Message extends React.Component {
                     <View style={{ flexDirection: 'column' }}>
                         <Text style={{ textAlign: 'right', marginRight: 6 }}>{Users[item.FromUserId].Name}</Text>
                         <View style={styles.MessageFromMe}>
-                            <TouchableHighlight onPress={() => this._playPause(item.MessageUrl)} underlayColor="rgba(255,255,255,0.4)">
+                            <TouchableHighlight onPress={() => this._playPause(item.Message)} underlayColor="rgba(255,255,255,0.4)">
                                 {this.RenderPlayButton()}
                             </TouchableHighlight>
                             <View style={styles.slider}>
@@ -188,7 +187,7 @@ export default class Message extends React.Component {
                     <View style={{ flexDirection: 'column' }}>
                         <Text style={{ textAlign: 'left', marginLeft: 6 }}>{Users[item.FromUserId].Name}</Text>
                         <View style={styles.MessageToMe}>
-                            <TouchableHighlight onPress={() => this._playPause(item.MessageUrl)} underlayColor="rgba(255,255,255,0.4)">
+                            <TouchableHighlight onPress={() => this._playPause(item.Message)} underlayColor="rgba(255,255,255,0.4)">
                                 {this.RenderPlayButton()}
                             </TouchableHighlight>
                             <View style={styles.slider}>

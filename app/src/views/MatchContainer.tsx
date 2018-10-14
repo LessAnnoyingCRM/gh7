@@ -18,6 +18,13 @@ type State = {};
 @observer
 export default class MatchContainer extends React.Component<Props, State> {
 
+	componentWillMount(){
+		console.log(this.props.MatchStore.PrimaryMatch);
+		if(this.props.MatchStore.PrimaryMatch){
+			this.props.navigation.navigate('Conversation', { MatchId: this.props.MatchStore.PrimaryMatch.MatchId });
+		}
+	}
+
 	OnMatchLike = (UserID: string, Name:string, navigate: any) => {
 		this.props.MatchStore.HandleResponse("Like", UserID);
 		navigate("Record", { UserID: UserID, Name: Name });
