@@ -30,7 +30,6 @@ export default class Inbox extends React.Component<Props, State> {
             );
         }
 
-        const GroupedData = _.chain(FakeConversationData).groupBy('ConversationId').value();
         let MostRecentConversations: any = {};
 
         _.each(this.state.Conversations, (Messages, MatchId: number) => {
@@ -52,7 +51,7 @@ export default class Inbox extends React.Component<Props, State> {
                             <View style={styles.PastChat}>
                                 <ConversationSummary
                                     key={Message.MatchId}
-                                    Messages={GroupedData[Message.MatchId]} 
+                                    Messages={this.state.Conversations[Message.MatchId]['Conversation']} 
                                     MatchId={Message.MatchId} 
                                     navigation={navigation}
                                 />

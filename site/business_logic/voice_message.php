@@ -77,11 +77,12 @@ function GetAllConversations ($Parameters, $UserId) {
 
 	foreach ($MessagesArray as $ThisMessage) {
 
-	    $ConversationsArray[$ThisMessage['MatchId']]["Conversation"][$ThisMessage['MessageId']] =
+	    $ConversationsArray[$ThisMessage['MatchId']]["Conversation"][] =
             array(
+                "MessageId" => $ThisMessage['MessageId'],
                 "Message" => $ThisMessage['MessageUrl'],
                 "DateSent" => $ThisMessage['DateSent'],
-                "UserId" => $ThisMessage['SendingUserId']
+                "FromUserId" => $ThisMessage['SendingUserId']
             );
 
 	}
