@@ -6,6 +6,21 @@ function CreateMatch ($Parameters, $UserId) {
 	return Mysql_GetLastCreatedId("MatchId");
 }
 
+function GetPotentialMatches($Parameters, $UserId) {
+
+    $User = GetUser($UserId);
+
+    if ($User['IsHost']) {
+        $Sql = "SELECT UserId FROM user WHERE !IsHost";
+    }
+    else {
+        $Sql = "SELECT UserId FROM user WHERE IsHost";
+    }
+
+    $Result = Mysqlx_Query($Sql);
+    return Mysql_GetAssocArray($Result);
+}
+
 function GetMatches ($Parameters, $UserId) {
 	$User = GetUser($UserId);
 
