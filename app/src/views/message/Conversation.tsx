@@ -9,18 +9,30 @@
  */
 import React from 'react';
 import _ from 'underscore';
+import Api from '../../utils/api';
 
 import { View, Text, FlatList, StyleSheet, Image, TouchableHighlight, Alert } from 'react-native';
-import ConversationData from '../../stores/conversations';
 // import Users from '../../stores/users';
 
-export default class Conversation extends React.Component {
+interface State {ConversationData:any, MatchId:string};
+
+export default class Conversation extends React.Component<Props, State> {
+
+    componentWillMount() {
+        Api.Call("GetCurrentMatch", {}).then((Result) => {
+            this.setState({MatchId:Result['MatchId']});
+            Api.Call("GetVoiceMessages", {MatchId:Result['MatchId']}).then((Result) => {
+                this.setState({ConversationData:Result['Conversation']});
+            });
+        });
+    }
+
     PlayMessage = () => {
         
     }
    
     RenderMessage({item}) {
-        const MyUserId = 2;
+        const MyUserId = 1;
 
         if(item.FromUserId == MyUserId){
             return (
@@ -65,8 +77,9 @@ export default class Conversation extends React.Component {
     }
 
     render() {
-        const ConversationId = 1234;
-        const GroupedConversations = _.chain(ConversationData).filter((Message) => { return Message.ConversationId == ConversationId }).sortBy('DateSent').value();
+        let MatchId = 2;
+        //    const GroupedConversations = _.chain(this.state.ConversationData).filter((Message) => { return Message.MatchId == MatchId }).sortBy('DateSent').value();
+        const GroupsConversations = this.state.ConversationData;
 
         return (
             <View style={styles.container}>
