@@ -32,13 +32,15 @@ export default class Matches implements MatchStore {
 		return false;
 	}
 	
-	HandleResponse = (Type: "Like" | "Dislike", UserID: string) => {
-		if (Type === "Like") {
-			// TODO: Call API and mark that we liked this match
-			this.Matches.shift();
-		} else {
-			this.Matches.shift();
-		}
+	HandleResponse = (Type: "Like" | "Dislike", OtherUserId: string) => {
+		Api.Call("HandleResponse", {OtherUserId:OtherUserId, Type:Type}).then((Result) => {
+			if($Result['NewMatch']){
+				Alert.alert("Match with UserId "+$Result['NewMatch']);
+				// ? move into messaging?
+			} else {
+				this.Matches.shift();	
+			}
+		});
 	}
 
 	GetPotentialMatches = () => {
