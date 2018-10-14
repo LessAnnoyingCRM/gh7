@@ -1,6 +1,7 @@
 import * as React from 'react';
 import _ from 'underscore';
 import moment from 'moment-timezone';
+import Api from '../../utils/Api';
 
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import FakeConversationData from '../../stores/conversations';
@@ -11,9 +12,17 @@ import { Message } from '../../types/Message';
 type Props = {
     navigation: any
 };
-export default class Inbox extends React.Component<Props> {    
+interface State {Conversations:any};
+export default class Inbox extends React.Component<Props, State> {
+
+    componentWillMount() {
+        Api.Call("GetAllConversations", {}).then((Result) => {
+            this.setState({Conversations:Result});
+        });
+    }
+
     render() {
-        if(_.size(FakeConversationData) == 0){
+        if(_.size(this.state.Conversations) == 0){
             return (
                 <View style={styles.container}>
                     <Text style={styles.welcome}>You have no conversations!</Text>
@@ -24,8 +33,8 @@ export default class Inbox extends React.Component<Props> {
         const GroupedData = _.chain(FakeConversationData).groupBy('ConversationId').value();
         let MostRecentConversations: any = {};
 
-        _.each(GroupedData, (Messages, ConversationId: number) => {
-            MostRecentConversations[ConversationId] = _.max(Messages, (Message) => { return moment(Message.DateSent).unix() });
+        _.each(this.state.Conversations, (Messages, MatchId: number) => {
+            MostRecentConversations[MatchId] = _.max(Messages, (Message) => { return moment(Message.DateSent).unix() });
         });
 
         const SortedData = _.sortBy(MostRecentConversations, (Message: Message) => { return Message.DateSent; }).reverse();
@@ -42,9 +51,9 @@ export default class Inbox extends React.Component<Props> {
                         return (
                             <View style={styles.PastChat}>
                                 <ConversationSummary
-                                    key={Message.ConversationId}
-                                    Messages={GroupedData[Message.ConversationId]} 
-                                    ConversationId={Message.ConversationId} 
+                                    key={Message.MatchId}
+                                    Messages={GroupedData[Message.MatchId]} 
+                                    MatchId={Message.MatchId} 
                                     navigation={navigation}
                                 />
                             </View>

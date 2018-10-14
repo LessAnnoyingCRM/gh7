@@ -1,5 +1,5 @@
 export type Message = {
-    ConversationId: number,
+    MatchId: number,
     MessageId: number,
     FromUserId: number,
     DateSent: string,
