@@ -12,6 +12,9 @@
     "react": "16.6.0-alpha.8af6728",
     "react-icons": "^3.2.0",
     "react-native": "0.57.3",
+    "react-native-audio-toolkit": "^1.0.6",
+    "react-native-button": "^2.3.0",
+    "react-native-fs": "^2.11.18",
     "react-native-tableview": "^2.4.0"
   },
   "devDependencies": {
