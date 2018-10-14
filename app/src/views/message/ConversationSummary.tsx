@@ -12,13 +12,13 @@ import Users from '../../stores/users';
 
 type Props = {
     Messages: Message[],
-    ConversationId: Message['ConversationId'],
+    MatchId: Message['MatchId'],
     navigation: any
 };
 
 export default class ConversationSummary extends React.Component<Props> {
     _onPressButton = () => {
-        this.props.navigation.navigate('Conversation', { ConversationId: this.props.ConversationId });
+        this.props.navigation.navigate('Conversation', { MatchId: this.props.MatchId });
     }
 
     render(){
@@ -38,7 +38,7 @@ export default class ConversationSummary extends React.Component<Props> {
                         <View style={styles.thread}>
                             <Text style={styles.name}>{Users[Message.FromUserId].Name}</Text>
                             {/* <Text>{"Last message: " + moment.tz(Message.DateSent, 'UTC').calendar()}</Text> */}
-                            <Text>{"Last message: " + Message.DateCleaned + " at " + Message.TimeCleaned}</Text>
+                            <Text>{"Last message: " + Message.DateSent}</Text>
                         </View>
                     </View>
                 </TouchableHighlight>

@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-push-notification')
     compile project(':react-native-vector-icons')
     compile project(':react-native-svg')
     compile project(':react-native-fs')
@@ -153,7 +154,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
     into 'libs'
 }
 
-project.ext.vectoricons = [
-    iconFontNames: [ 'FontAwesome.ttf' ]
-]
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"

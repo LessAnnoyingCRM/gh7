@@ -1,83 +1,35 @@
-export default [
-    {
-        ConversationId: 1234,
-        MessageId: 3438,
-        FromUserId: 1,
-        DateSent: "2018-02-20T00:39:00Z",
-        DateCleaned: "Feb 20",
-        TimeCleaned: "00:39",
-        MessageLength: "0:45",
-    },
-    {
-        ConversationId: 1234,
-        MessageId: 39847,
-        FromUserId: 2,
-        DateSent: "2018-02-23T11:38:53Z",
-        DateCleaned: "Feb 23",
-        TimeCleaned: "11:38",
-        MessageLength: "1:10",
-    },
-    {
-        ConversationId: 1234,
-        MessageId: 34892,
-        FromUserId: 1,
-        DateSent: "2018-02-24T10:21:23Z",
-        DateCleaned: "Feb 24",
-        TimeCleaned: "10:21",
-        MessageLength: "0:32",
-    },
-    {
-        ConversationId: 1234,
-        MessageId: 34,
-        FromUserId: 1,
-        DateSent: "2018-02-24T14:01:23Z",
-        DateCleaned: "Feb 24",
-        TimeCleaned: "14:01",
-        MessageLength: "0:53",
-    },
-    {
-        ConversationId: 1234,
-        MessageId: 664,
-        FromUserId: 2,
-        DateSent: "2018-02-24T10:21:23Z",
-        DateCleaned: "Feb 24",
-        TimeCleaned: "14:01",
-        MessageLength: "1:14",
-    },
-    {
-        ConversationId: 1234,
-        MessageId: 221,
-        FromUserId: 2,
-        DateSent: "2018-02-24T10:21:23Z",
-        DateCleaned: "Feb 24",
-        TimeCleaned: "14:01",
-        MessageLength: "0:14",
-    },
-    {
-        ConversationId: 1234,
-        MessageId: 453,
-        FromUserId: 1,
-        DateSent: "2018-02-24T10:21:23Z",
-        DateCleaned: "Feb 24",
-        TimeCleaned: "14:01",
-        MessageLength: "0:34",
-    },
-    {
-        ConversationId: 1234,
-        MessageId: 4,
-        FromUserId: 2,
-        DateSent: "2018-02-24T10:21:23Z",
-        DateCleaned: "Feb 24",
-        TimeCleaned: "14:01",
-        MessageLength: "0:29",
-    },
-    {
-        ConversationId: 95043,
-        MessageId: 34802,
-        FromUserId: 3,
-        DateSent: "2018-03-04T12:43:20Z",
-        DateCleaned: "Mar 4",
-        TimeCleaned: "12:43",
-        MessageLength: "1:04",
-    }
-];
+import Api from '../utils/api';
+import { observable } from 'mobx';
+import {Alert} from 'react-native';
+import _ from 'underscore';
+
+export interface ConversationStore {
+	InitStore: () => void,
+	GetConversations: () => any,
+	Conversations: any,
+}
+
+export default class Conversations implements ConversationStore {
+	
+	@observable Conversations: any = [];
+
+	constructor () {
+		this.InitStore();
+	}
+	
+	GetConversations = () => {
+		Api.Call("GetAllConversations", {}).then((Result) => {
+			Alert.alert(JSON.stringify(Result));
+			if(_.size(Result) > 0) {
+				this.Conversations = Result;
+			} else {
+				this.Conversations = [];
+			}
+		});
+	}
+	
+	InitStore = () => {
+		this.GetConversations();
+	}
+	
+}

@@ -9,6 +9,8 @@ import LanguagePicker from './LanguagePicker';
 //import SideBar from './SideBar';
 import RecordMessage from './message/RecordMessage';
 import MessageSent from './message/MessageSent';
+import UserRating from './UserRating';
+import RatingConfirmation from './RatingConfirmation';
 
 const NavOptions: DrawerNavigatorConfig = {
     initialRouteName: 'Home',
@@ -24,5 +26,7 @@ export default DrawerNavigator({
     // SideBar: { screen: SideBar },
     LanguagePicker: { screen: LanguagePicker },
     Record : { screen: RecordMessage },
-    Confirmation : { screen: MessageSent }
+    Confirmation : { screen: MessageSent },
+    UserRating: { screen: UserRating },
+    RatingConfirmation: { screen: RatingConfirmation }
 }, NavOptions);
