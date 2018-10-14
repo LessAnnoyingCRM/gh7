@@ -86,7 +86,7 @@ CREATE TABLE `message` (
   PRIMARY KEY (`MessageId`),
   KEY `UserId` (`SendingUserId`),
   KEY `MatchId` (`MatchId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,6 +95,7 @@ CREATE TABLE `message` (
 
 LOCK TABLES `message` WRITE;
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
+INSERT INTO `message` VALUES (1,1,2,'2018-10-10 05:00:02','https://s3.amazonaws.com/gh7/1.mp4',NULL);
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +115,7 @@ CREATE TABLE `pairing` (
   `DateUnmatched` datetime DEFAULT NULL,
   `DateLastPresented` datetime DEFAULT NULL,
   PRIMARY KEY (`MatchId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +124,7 @@ CREATE TABLE `pairing` (
 
 LOCK TABLES `pairing` WRITE;
 /*!40000 ALTER TABLE `pairing` DISABLE KEYS */;
-INSERT INTO `pairing` VALUES (2,1,2,NULL,NULL,NULL,NULL),(3,1,2,NULL,NULL,NULL,NULL);
+INSERT INTO `pairing` VALUES (2,1,2,'2018-10-14 04:29:29','2018-10-14 04:33:10',NULL,NULL),(3,1,2,NULL,NULL,NULL,NULL),(4,1,2,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `pairing` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -222,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-14  4:07:39
+-- Dump completed on 2018-10-14  4:58:59

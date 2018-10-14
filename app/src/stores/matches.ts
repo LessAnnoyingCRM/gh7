@@ -1,5 +1,6 @@
 import { observable } from 'mobx';
 import { Match } from '../types/match';
+import Api from '../utils/api';
 
 export interface MatchStore {
 	InitStore: () => void,
@@ -21,7 +22,12 @@ export default class Matches implements MatchStore {
 	 * Checks to see if the User already has an active connection (host accepted a match)
 	 */
 	CheckConnection = () => {
-		// TODO: Axios call to API
+		// THIS IS JUST AN EXAMPLE
+		Api.Call("TestHelloWorld", {}).then((Result:any) => {
+			console.log(Result);
+		}).catch((err:any) => {
+			console.log(err);
+		});
 		return false;
 	}
 	
