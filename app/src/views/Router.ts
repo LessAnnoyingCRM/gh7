@@ -6,6 +6,7 @@ import RecordMatchMessage from './RecordMatchMessage';
 import Inbox from './message/Inbox';
 import Conversation from './message/Conversation';
 import SideBar from './SideBar';
+import LanguagePicker from './LanguagePicker';
 
 const NavOptions: DrawerNavigatorConfig = {
     initialRouteName: 'Home',
@@ -19,5 +20,6 @@ export default DrawerNavigator({
     Current: { screen: Conversation },
     History: { screen: Inbox },
     Conversation: { screen: Conversation },
-    SideBar: { screen: SideBar }
+    SideBar: { screen: SideBar },
+    LanguagePicker: { screen: LanguagePicker }
 }, NavOptions);

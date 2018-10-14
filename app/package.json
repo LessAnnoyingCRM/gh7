@@ -11,6 +11,7 @@
     "react": "16.6.0-alpha.8af6728",
     "react-icons": "^3.2.0",
     "react-native": "0.57.3",
+    "react-native-checkbox-form": "git+https://github.com/renodubois/react-native-checkbox-form.git",
     "react-native-tableview": "^2.4.0"
   },
   "devDependencies": {
