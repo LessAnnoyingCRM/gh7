@@ -80,7 +80,7 @@ export default class MatchCard extends React.Component<Props, State> {
 					</View>
 				</ScrollView>
 				 <View style={Styles.RatingButtons}>
-					<TouchableHighlight onPress={() => this.props.OnDislike(UserID, navigate)} underlayColor="rgba(255,255,255,0.4)">
+					<TouchableHighlight onPress={() => this.props.OnDislike(OtherUserId, navigate)} underlayColor="rgba(255,255,255,0.4)">
 						<View style={Styles.ThumbsDownButton}>
 							<Svg 
 								width='41'
@@ -96,7 +96,7 @@ export default class MatchCard extends React.Component<Props, State> {
 							</Svg>
 						</View>
 					</TouchableHighlight>
-					<TouchableHighlight onPress={() => this.props.OnLike(UserID, navigate)} underlayColor="rgba(255,255,255,0.4)">
+					<TouchableHighlight onPress={() => this.props.OnLike(OtherUserId, navigate)} underlayColor="rgba(255,255,255,0.4)">
 						<View style={Styles.ThumbsUpButton}>
 							<Svg
 								width='41'
