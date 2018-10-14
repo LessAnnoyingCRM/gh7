@@ -33,7 +33,7 @@ function SendVoiceMessage ($Parameters, $UserId) {
             ";
     Mysqlx_Query($Sql);
 
-    return array('MessageId'=>$MessageId);
+    return array('MessageId'=>$MessageId,'MessageUrl'=>$Url);
 }
 
 function GetVoiceMessages ($Parameters) {
