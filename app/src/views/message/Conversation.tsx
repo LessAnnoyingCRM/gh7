@@ -54,6 +54,10 @@ export default class Conversation extends React.Component<Props, State> {
         this.props.navigation.navigate("Matches");
     }
 
+    RateUser() {
+        this.props.navigation.navigate("UserRating");
+    }
+
     render() {
         let MatchId = 2;
         //    const GroupedConversations = _.chain(this.state.ConversationData).filter((Message) => { return Message.MatchId == MatchId }).sortBy('DateSent').value();
@@ -101,7 +105,7 @@ export default class Conversation extends React.Component<Props, State> {
                             </TouchableHighlight>
                         </View>
                         <View style={styles.ConfirmMetButton}>
-                            <TouchableHighlight>
+                            <TouchableHighlight onPress={() => this.RateUser()}>
                                 <View style={{alignItems:'center'}}>
                                     <View>
                                         <Svg

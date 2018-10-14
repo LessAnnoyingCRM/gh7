@@ -13,12 +13,7 @@ type Props = {
 };
 export default class HomeComponent extends React.Component<Props> {
 	render() {
-		const { navigate } = this.props.navigation;
-		const HomeBackground = 'https://upload.wikimedia.org/wikipedia/commons/4/40/Italian_Risotto.png';
-		// const HomeBackground = 'https://s3.amazonaws.com/gh7/images/assets/home_background.jpg';
-		const Overlay = 'https://s3.amazonaws.com/gh7/images/assets/home_overlay.png';
 		return (
-			// require('../HomeBackground.jpeg')
 			<ImageBackground source={require('../HomeBackground.jpeg')} style={{width: '100%', height: '100%'}} >
 			
 			<View style={styles.container}>
@@ -26,18 +21,14 @@ export default class HomeComponent extends React.Component<Props> {
 					<Text style={styles.WelcomeHome}>WELCOME HOME</Text>
 					<Text style={styles.SubTitle}>Forge unbreakable bonds over unforgettable meals</Text>
 				</View>
-				
-				{/* <TouchableHighlight onPress={() => navigate("Max2tches")}>
-					<Text>Go to Matches</Text> 
-				</TouchableHighlight> */}
 
 				<View style={styles.HomeFooter}>
-					<TouchableHighlight>
+					<TouchableHighlight onPress={() => this.props.navigation.navigate("LanguagePicker")}>
 						<View style={styles.GuestSignUp}>
 							<Text style={styles.GuestSignUpText}>I’M NEW TO ST. LOUIS</Text>
 						</View>
 					</TouchableHighlight>
-					<TouchableHighlight>
+						<TouchableHighlight onPress={() => this.props.navigation.navigate("LanguagePicker")}>
 						<View style={styles.HostSignUp}>
 							<Text style={styles.HostSignUpText}>I want to host my new neighbors</Text>
 						</View>
