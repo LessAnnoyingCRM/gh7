@@ -22,7 +22,7 @@ export default class Conversation extends React.Component {
    
     RenderMessage= ({item}) => {
         let Count = Math.floor(Math.random()*this.count) + 1;
-        if(Count = 3){
+        if(Count == 3){
             Count++;
         }
         const PlayPath = 'https://s3.amazonaws.com/gh7/'+Count+'.mp4'; //item.URL
@@ -35,6 +35,7 @@ export default class Conversation extends React.Component {
     render() {
         const ConversationId = 1234;
         const GroupedConversations = _.chain(ConversationData).filter((Message) => { return Message.ConversationId == ConversationId }).sortBy('DateSent').value();
+        const navigate = this.props.navigation.navigate;
 
         return (
             <View style={styles.container}>
@@ -45,7 +46,7 @@ export default class Conversation extends React.Component {
                 />
                 <View style={styles.ConvoFooter}>
                     <View style={styles.RecordMessageButton}>
-                        <TouchableHighlight>
+                        <TouchableHighlight onPress={() => navigate('Record')}>
                             <View style={{flexDirection:'row'}}>
                                 <Text style={styles.MicIcon}></Text>
                                 <View style={{justifyContent:'center'}}><Text style={{fontSize:13, fontWeight:'bold', letterSpacing: 2.5}}>{"RECORD MESSAGE"}</Text></View>
