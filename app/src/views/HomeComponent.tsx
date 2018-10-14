@@ -22,7 +22,7 @@ export default class HomeComponent extends React.Component<Props> {
 			<ImageBackground source={require('../HomeBackground.jpeg')} style={{width: '100%', height: '100%'}} >
 			
 			<View style={styles.container}>
-				<View style={{marginTop: 90, padding:15, backgroundColor: '#00000080'}}>
+				<View style={{marginTop: 90, padding:15, }}>
 					<Text style={styles.WelcomeHome}>WELCOME HOME</Text>
 					<Text style={styles.SubTitle}>Forge unbreakable bonds over unforgettable meals</Text>
 				</View>
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
 			alignItems: 'center',
 			// backgroundColor: '#7DB66F',
 			// flexDirection: 'column',
+			backgroundColor: '#00000080',
 		},
 		WelcomeHome: {
 			fontSize: 40,
