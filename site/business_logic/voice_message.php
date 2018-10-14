@@ -23,7 +23,7 @@ function SendVoiceMessage ($Parameters, $UserId) {
     $MessageId = $MessageIdReturn['MessageId'];
 
     // upload the file
-    $S3Filename = $MessageId['MessageId'].'.mp4';
+    $S3Filename = $MessageId.'.mp4';
     $Url = _UploadMp4S3($S3Filename,$LocalFilename,$FileType);
 
     // update the DB with the url
