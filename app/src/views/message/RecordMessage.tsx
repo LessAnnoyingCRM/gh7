@@ -245,7 +245,7 @@ export default class RecordMessage extends React.Component<Props> {
         return (
             <View style={styles.pageContainer}>
                 <View>
-                    <Text style={styles.title}>Say hi to Jan</Text>
+                    <Text style={styles.title}>Say hi to {this.props.navigation.getParam('Name', 'Jane Doe')}</Text>
                 </View>
                 <View style={styles.buttonWrapper}>
                     <Button
