@@ -1,7 +1,10 @@
+import { LanguageSkill } from './language';
 export interface Match {
 	Name: string,
-	Distance: string,
 	ProfilePictureURL: string,
 	CoverPhotoURL: string,
-	UserID: string
+	LanguageSkills?: LanguageSkill[],
+	VoiceMessageURL?: string,	// Set for Hosts recieving matches from guests who have sent an initial voice message
+	UserID: string,
+	
 }
