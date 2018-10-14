@@ -17,10 +17,10 @@ type State = {};
 @inject('MatchStore')
 @observer
 export default class MatchContainer extends React.Component<Props, State> {
-	// TODO: Figure out how to type the navigation function
+
 	OnMatchLike = (UserID: string, navigate: any) => {
-		// TODO: render voice recording screen for matched UserID
-		navigate("RecordMatchMessage", { UserID: UserID });
+		this.props.MatchStore.HandleResponse("Like", UserID);
+		navigate("Record", { UserID: UserID });
 	}
 
 	OnMatchDislike = (UserID: string, navigate: any) => {
@@ -39,7 +39,6 @@ export default class MatchContainer extends React.Component<Props, State> {
 				)
 			}
 			const ActiveMatch = Matches[0];
-			console.log("new match");
 			return (
 				<View style={{ flex:1 }}>
 					<MatchCard {...ActiveMatch} Active={true} OnLike={this.OnMatchLike} OnDislike={this.OnMatchDislike} navigation={this.props.navigation} />
