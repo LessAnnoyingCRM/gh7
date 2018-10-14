@@ -70,7 +70,20 @@ function HandleResponse($Parameters, $UserId, $IsHost) {
 	}
 	Mysqlx_Query($Sql);
 	return $Return;
+}
 
+function GetCurrentMatch ($Parameters, $UserId, $IsHost) {
+	$Sql = "SELECT *
+			FROM pairing
+			LEFT JOIN event ON event.MatchId = pairing.MatchId
+			WHERE event.EventHappened != 1 
+				AND DateGuestApproved IS NOT NULL 
+				AND DateHostMatched IS NOT NULL 
+				AND DateUnmatched IS NULL
+				AND ".($IsHost ? "HostId = $UserId" : "GuestId = $UserId")."
+			ORDER BY DateHostMatched DESC 
+			LIMIT 1";
+	return Mysqlx_Query($Sql);
 }
 
 function GuestApproveMatch ($Parameters) {

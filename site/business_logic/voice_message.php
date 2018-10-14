@@ -52,7 +52,8 @@ function GetVoiceMessages ($Parameters) {
             array(
                 "Message" => $ThisMessage['MessageUrl'],
                 "DateSent" => $ThisMessage['DateSent'],
-                "UserId" => $ThisMessage['SendingUserId']
+                "UserId" => $ThisMessage['SendingUserId'],
+                "MatchId" => $MatchId
             );
     }
 
