@@ -28,7 +28,6 @@ export default class Conversation extends React.Component<Props> {
             Count++;
         }
         const PlayPath = 'https://s3.amazonaws.com/gh7/'+Count+'.mp4'; //item.URL
-        console.log("here's an item", item)
         return (
             <Message item={item} RecordingUrl={PlayPath} key={item.MessageId} />
         );
