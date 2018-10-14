@@ -1,35 +1,42 @@
 /**
  * TODO:
- * Start at the bottom of the list
- * Include user input -- button or something to record audio
- * Render audio so they can listen
- * Figure out how to stream it to the phone
  * Maybe also support passing in the conversation id instead of just loading the hardcoded one
  * Also dynamically figure out user's id... lol
  */
 import React from 'react';
 import _ from 'underscore';
+import { inject, observer } from 'mobx-react';
 
 import { View, Text, FlatList, StyleSheet, Image, TouchableHighlight, Alert, Slider } from 'react-native';
 import { Svg, Path, Polyline, Circle, Line } from 'react-native-svg';
 import Message from './Message';
 import ConversationData from '../../stores/conversations';
 import Users from '../../stores/users';
+import { MatchStore } from '../../stores/matches'
 
-export default class Conversation extends React.Component {
-
+type Props = {
+    MatchStore: MatchStore
+};
+@inject('MatchStore')
+@observer
+export default class Conversation extends React.Component<Props> {
     count = 6;
    
-    RenderMessage= ({item}) => {
+    RenderMessage = ({item}) => {
         let Count = Math.floor(Math.random()*this.count) + 1;
         if(Count == 3){
             Count++;
         }
         const PlayPath = 'https://s3.amazonaws.com/gh7/'+Count+'.mp4'; //item.URL
-
+        console.log("here's an item", item)
         return (
             <Message item={item} RecordingUrl={PlayPath} key={item.MessageId} />
         );
+    }
+
+    UnMatch = () => {
+        this.props.MatchStore.HandleResponse("Like", 2);
+        this.props.navigation.navigate("Matches");
     }
 
     render() {
@@ -55,7 +62,7 @@ export default class Conversation extends React.Component {
                     </View>
                     <View style={styles.ConvoFooterButtons}>
                         <View style={styles.UnmatchButton}>
-                            <TouchableHighlight>
+                            <TouchableHighlight onPress={() => this.UnMatch()}>
                                 <View style={{alignItems:'center'}}>
                                     <View>
                                         <Svg 
